@@ -11,7 +11,7 @@
   <link href="css/styles.css" rel="stylesheet">
   <style>
     body {
-      background-color: rgb(248, 249, 250);
+      background-color: rgb(white);
     }
   </style>
 </head>
@@ -19,9 +19,28 @@
 <body>
   <main class="mt-5">
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+     <form action="index.html">
+       <h1>Por favor, ingresa tus datos</h1>
+       <div class="itemform">
+         <label for="mail">Correo electronico</label>
+         <input type="email" name="email" id="email">
+        </div>
+        <div class="itemform">
+          <label for="password">Contraseña</label>
+          <input type="password" name="password" id="password">
+        </div>  
+        <div class="itemform">
+          <label for="check">Recordarme</label>
+          <input type="checkbox" name="recordarme" id="recordarme">
+        </div>
+        <div class="itemform">
+          <input type="button" value="INGRESAR">
+        </div>
+        
+        <div class="itemform"> 
+          <img src="/img/login.png" alt="">
+        </div>
+     </form>
     </div>
   </main>
   <footer class="text-muted">
