@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-let guardar = localStorage.getItem("user") && localStorage.getItem("password")
-let noguardar = sessionStorage.getItem("noguardar");
-if (!(guardar || noguardar)){
+let guardado = localStorage.getItem("user");
+let noguardado = sessionStorage.getItem("user");
+if (!(guardado || noguardado)){
     window.location.href = "login.html";
 }

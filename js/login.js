@@ -13,10 +13,9 @@ function validar() {
 
     if (recordar && validarpass()) {
         localStorage.setItem("user", user);
-        localStorage.setItem("password", password);
         window.location.href = "index.html";
     } else if (!recordar && validarpass()) {
-        sessionStorage.setItem("noguardar", true);
+        sessionStorage.setItem("user", user);
         window.location.href = "index.html";
     } else {
         alert("Datos incorrectos");
