@@ -2,8 +2,6 @@ const PRODUCTS_DATA = "https://japceibal.github.io/emercado-api/cats_products/"+
 const categoria = document.getElementById("categoria");
 
 //Se declaran nuevas variables para las funciones de orden y filtrado
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_SOLD_COUNT = "Cant.";
 const ORDER_ASC_BY_PRICE = "Asc.";
 const ORDER_DESC_BY_PRICE = "Desc.";
@@ -14,19 +12,7 @@ let maxCount = undefined;
 //Funcion para ordenar productos alfabeticamente y cantidad vendidos
 function sortProducts(criteria, array){
   let result = [];
-  if (criteria === ORDER_ASC_BY_NAME) {
-      result = array.sort(function(a, b) {
-          if (a.name < b.name) { return -1; }
-          if (a.name > b.name) { return 1; }
-          return 0;
-      });
-  } else if (criteria === ORDER_DESC_BY_NAME) {
-      result = array.sort(function(a, b) {
-          if (a.name > b.name) { return -1; }
-          if (a.name < b.name) { return 1; }
-          return 0;
-      });
-  } else if (criteria === ORDER_BY_SOLD_COUNT) {
+  if (criteria === ORDER_BY_SOLD_COUNT) {
       result = array.sort(function(a, b) {
           let aCount = parseInt(a.soldCount);
           let bCount = parseInt(b.soldCount);
