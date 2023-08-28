@@ -2,9 +2,9 @@ const PRODUCTS_DATA = "https://japceibal.github.io/emercado-api/cats_products/"+
 const categoria = document.getElementById("categoria");
 
 //Se declaran nuevas variables para las funciones de orden y filtrado
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_SOLD_COUNT = "Cant.";
+const ORDER_ASC_BY_PRICE = "Asc.";
+const ORDER_DESC_BY_PRICE = "Desc.";
 let currentProducts= undefined;
 let minCount = undefined;
 let maxCount = undefined;
@@ -12,19 +12,7 @@ let maxCount = undefined;
 //Funcion para ordenar productos alfabeticamente y cantidad vendidos
 function sortProducts(criteria, array){
   let result = [];
-  if (criteria === ORDER_ASC_BY_NAME) {
-      result = array.sort(function(a, b) {
-          if (a.name < b.name) { return -1; }
-          if (a.name > b.name) { return 1; }
-          return 0;
-      });
-  } else if (criteria === ORDER_DESC_BY_NAME) {
-      result = array.sort(function(a, b) {
-          if (a.name > b.name) { return -1; }
-          if (a.name < b.name) { return 1; }
-          return 0;
-      });
-  } else if (criteria === ORDER_BY_SOLD_COUNT) {
+  if (criteria === ORDER_BY_SOLD_COUNT) {
       result = array.sort(function(a, b) {
           let aCount = parseInt(a.soldCount);
           let bCount = parseInt(b.soldCount);
@@ -33,7 +21,25 @@ function sortProducts(criteria, array){
           if (aCount < bCount) { return 1; }
           return 0;
       });
-  }
+    } else if (criteria === ORDER_ASC_BY_PRICE) {
+        result = array.sort(function(a, b) {
+            let aCount = parseInt(a.cost);
+            let bCount = parseInt(b.cost);
+  
+            if (aCount > bCount) { return 1; }
+            if (aCount < bCount) { return -1; }
+            return 0;
+        });
+    } else if (criteria === ORDER_DESC_BY_PRICE) {
+        result = array.sort(function(a, b) {
+            let aCount = parseInt(a.cost);
+            let bCount = parseInt(b.cost);
+  
+            if (aCount > bCount) { return -1; }
+            if (aCount < bCount) { return 1; }
+            return 0;
+        });
+    }
 
   return result;
 }
@@ -101,18 +107,11 @@ function sortAndShowProducts(sortCriteria, dataArray) {
    showData(currentProducts.products);
   }
   
-  //BOTON ORDEN ASCENDENTE
-  document.getElementById("sortAsc").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_ASC_BY_NAME);
-});
-//BOTON ORDEN DESCENDENTE
-document.getElementById("sortDesc").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_DESC_BY_NAME);
-});
 //BOTON ORDENAR X RELEVANCIA (CANTIDAD DE VENDIDOS)
 document.getElementById("sortByCount").addEventListener("click", function() {
     sortAndShowProducts(ORDER_BY_SOLD_COUNT);
 });
+
 //BOTON LIMPIAR
 document.getElementById("clearRangeFilter").addEventListener("click", function() {
     document.getElementById("rangeFilterCountMin").value = "";
@@ -143,4 +142,11 @@ document.getElementById("rangeFilterCount").addEventListener("click", function()
   }
 
   showData(currentProducts.products);
+});
+//BOTONES ORDENAR X PRECIO
+document.getElementById("sortByPriceAsc").addEventListener("click", function() {
+    sortAndShowProducts(ORDER_ASC_BY_PRICE);
+});
+document.getElementById("sortByPriceDesc").addEventListener("click", function() {
+    sortAndShowProducts(ORDER_DESC_BY_PRICE);
 });
