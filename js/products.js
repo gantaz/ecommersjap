@@ -121,18 +121,11 @@ function sortAndShowProducts(sortCriteria, dataArray) {
    showData(currentProducts.products);
   }
   
-  //BOTON ORDEN ASCENDENTE
-  document.getElementById("sortAsc").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_ASC_BY_NAME);
-});
-//BOTON ORDEN DESCENDENTE
-document.getElementById("sortDesc").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_DESC_BY_NAME);
-});
 //BOTON ORDENAR X RELEVANCIA (CANTIDAD DE VENDIDOS)
 document.getElementById("sortByCount").addEventListener("click", function() {
     sortAndShowProducts(ORDER_BY_SOLD_COUNT);
 });
+
 //BOTON LIMPIAR
 document.getElementById("clearRangeFilter").addEventListener("click", function() {
     document.getElementById("rangeFilterCountMin").value = "";
