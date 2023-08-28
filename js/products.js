@@ -5,6 +5,8 @@ const categoria = document.getElementById("categoria");
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_SOLD_COUNT = "Cant.";
+const ORDER_ASC_BY_PRICE = "Asc.";
+const ORDER_DESC_BY_PRICE = "Desc.";
 let currentProducts= undefined;
 let minCount = undefined;
 let maxCount = undefined;
@@ -33,7 +35,25 @@ function sortProducts(criteria, array){
           if (aCount < bCount) { return 1; }
           return 0;
       });
-  }
+    } else if (criteria === ORDER_ASC_BY_PRICE) {
+        result = array.sort(function(a, b) {
+            let aCount = parseInt(a.cost);
+            let bCount = parseInt(b.cost);
+  
+            if (aCount > bCount) { return 1; }
+            if (aCount < bCount) { return -1; }
+            return 0;
+        });
+    } else if (criteria === ORDER_DESC_BY_PRICE) {
+        result = array.sort(function(a, b) {
+            let aCount = parseInt(a.cost);
+            let bCount = parseInt(b.cost);
+  
+            if (aCount > bCount) { return -1; }
+            if (aCount < bCount) { return 1; }
+            return 0;
+        });
+    }
 
   return result;
 }
@@ -143,4 +163,11 @@ document.getElementById("rangeFilterCount").addEventListener("click", function()
   }
 
   showData(currentProducts.products);
+});
+//BOTONES ORDENAR X PRECIO
+document.getElementById("sortByPriceAsc").addEventListener("click", function() {
+    sortAndShowProducts(ORDER_ASC_BY_PRICE);
+});
+document.getElementById("sortByPriceDesc").addEventListener("click", function() {
+    sortAndShowProducts(ORDER_DESC_BY_PRICE);
 });
