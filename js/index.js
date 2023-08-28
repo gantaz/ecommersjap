@@ -18,3 +18,7 @@ let noguardado = sessionStorage.getItem("user");
 if (!(guardado || noguardado)){
     window.location.href = "login.html";
 }
+
+const usuario = document.getElementById("usuario");
+
+usuario.innerHTML += localStorage.getItem("user")
