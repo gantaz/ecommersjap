@@ -138,30 +138,33 @@ document
     showData(currentProducts.products);
   });
 
+//FUNCION FILTRAR
+function minMax() {
+  // Obtener el mínimo y máximo de los intervalos para filtrar por cantidad de productos disponibles.
+  minCount = document.getElementById("rangeFilterCountMin").value;
+  maxCount = document.getElementById("rangeFilterCountMax").value;
+
+  if (minCount != undefined && minCount != "" && parseInt(minCount) >= 0) {
+    minCount = parseInt(minCount);
+  } else {
+    minCount = undefined;
+  }
+
+  if (maxCount != undefined && maxCount != "" && parseInt(maxCount) >= 0) {
+    maxCount = parseInt(maxCount);
+  } else {
+    maxCount = undefined;
+  }
+
+  showData(currentProducts.products);
+}
+
 //BOTON FILTRAR
-document
-  .getElementById("rangeFilterCount")
-  .addEventListener("click", function () {
-    // Obtener el mínimo y máximo de los intervalos para filtrar por cantidad
-    // de productos disponibles.
-    minCount = document.getElementById("rangeFilterCountMin").value;
-    maxCount = document.getElementById("rangeFilterCountMax").value;
+document.getElementById("rangeFilterCount").addEventListener("click", minMax);
+//KEYUP FILTRAR
+document.getElementById("rangeFilterCountMin").addEventListener("keyup", minMax);
+document.getElementById("rangeFilterCountMax").addEventListener("keyup", minMax);
 
-    if (minCount != undefined && minCount != "" && parseInt(minCount) >= 0) {
-      minCount = parseInt(minCount);
-    } else {
-      minCount = undefined;
-    }
-
-    if (maxCount != undefined && maxCount != "" && parseInt(maxCount) >= 0) {
-      maxCount = parseInt(maxCount);
-    } else {
-      maxCount = undefined;
-    }
-
-    showData(currentProducts.products);
-  });
-  
 //BOTONES ORDENAR X PRECIO
 document
   .getElementById("sortByPriceAsc")
