@@ -39,6 +39,7 @@
         <h2>Productos</h2>
         <p class="lead">Verás aquí todos los productos.</p>
       </div>
+      <!-- Acá se agrega la sección de filtros-->
       <div class="container">
         <div class="row">
           <div class="col text-end">
@@ -57,18 +58,21 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+          <div class="col-lg-12 offset-lg-0 col-md-12 mb-1 container">
             <div class="row container p-0 m-0">
-              <div class="col">
+              <div class="col-3">
+                <input type="search" id="buscador" class="form-control" placeholder="Buscar 🔍">
+              </div>
+              <div class="col offset-lg-4">
                 <p class="font-weight-normal text-end my-2"><i class="fas fa-dollar-sign"></i></p>
               </div>
-              <div class="col">
+              <div class="col-1">
                 <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
               </div>
-              <div class="col">
+              <div class="col-1">
                 <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
               </div>
-              <div class="col-3 p-0">
+              <div class="col p-0">
                 <div class="btn-group" role="group">
                   <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
                   <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
