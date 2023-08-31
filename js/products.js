@@ -1,38 +1,59 @@
-const PRODUCTS_DATA = "https://japceibal.github.io/emercado-api/cats_products/"+ localStorage.getItem("catID") + ".json"; 
+const PRODUCTS_DATA =
+  "https://japceibal.github.io/emercado-api/cats_products/" +
+  localStorage.getItem("catID") +
+  ".json";
 const categoria = document.getElementById("categoria");
 
 //Se declaran nuevas variables para las funciones de orden y filtrado
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_SOLD_COUNT = "Cant.";
-let currentProducts= undefined;
+const ORDER_ASC_BY_PRICE = "Asc.";
+const ORDER_DESC_BY_PRICE = "Desc.";
+let currentProducts = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
 //Funcion para ordenar productos alfabeticamente y cantidad vendidos
-function sortProducts(criteria, array){
+function sortProducts(criteria, array) {
   let result = [];
-  if (criteria === ORDER_ASC_BY_NAME) {
-      result = array.sort(function(a, b) {
-          if (a.name < b.name) { return -1; }
-          if (a.name > b.name) { return 1; }
-          return 0;
-      });
-  } else if (criteria === ORDER_DESC_BY_NAME) {
-      result = array.sort(function(a, b) {
-          if (a.name > b.name) { return -1; }
-          if (a.name < b.name) { return 1; }
-          return 0;
-      });
-  } else if (criteria === ORDER_BY_SOLD_COUNT) {
-      result = array.sort(function(a, b) {
-          let aCount = parseInt(a.soldCount);
-          let bCount = parseInt(b.soldCount);
+  if (criteria === ORDER_BY_SOLD_COUNT) {
+    result = array.sort(function (a, b) {
+      let aCount = parseInt(a.soldCount);
+      let bCount = parseInt(b.soldCount);
 
-          if (aCount > bCount) { return -1; }
-          if (aCount < bCount) { return 1; }
-          return 0;
-      });
+      if (aCount > bCount) {
+        return -1;
+      }
+      if (aCount < bCount) {
+        return 1;
+      }
+      return 0;
+    });
+  } else if (criteria === ORDER_ASC_BY_PRICE) {
+    result = array.sort(function (a, b) {
+      let aCount = parseInt(a.cost);
+      let bCount = parseInt(b.cost);
+
+      if (aCount > bCount) {
+        return 1;
+      }
+      if (aCount < bCount) {
+        return -1;
+      }
+      return 0;
+    });
+  } else if (criteria === ORDER_DESC_BY_PRICE) {
+    result = array.sort(function (a, b) {
+      let aCount = parseInt(a.cost);
+      let bCount = parseInt(b.cost);
+
+      if (aCount > bCount) {
+        return -1;
+      }
+      if (aCount < bCount) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   return result;
@@ -54,19 +75,18 @@ fetch(PRODUCTS_DATA)
 
 //Modificaciones de la función: se declara variable vacía a la que se le va agregando el contenido html con el inner.html a medida que va iterando
 //
-  function showData(dataArray) {
-    
-    let htmlContentToAppend = "";
-    
-    for (let i = 0; i < dataArray.length; i++) {
-        let product = dataArray[i];
-        
-        let productPrice = parseInt(product.cost);
-
-        if (((minCount == undefined) || (minCount != undefined && productPrice >= minCount)) &&
-        ((maxCount == undefined) || (maxCount != undefined && productPrice <= maxCount))) {
-
-            htmlContentToAppend += `<div onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
+function showData(dataArray) {
+  let htmlContentToAppend = "";
+  for (let i = 0; i < dataArray.length; i++) {
+    let product = dataArray[i];
+    let productPrice = parseInt(product.cost);
+    if (
+      (minCount == undefined ||
+        (minCount != undefined && productPrice >= minCount)) &&
+      (maxCount == undefined ||
+        (maxCount != undefined && productPrice <= maxCount))
+    ) {
+      htmlContentToAppend += `<div onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
             <div class="row">
                 <div class="col-3">
                     <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
@@ -80,41 +100,35 @@ fetch(PRODUCTS_DATA)
                 </div>
             </div>
         </div>`;
-        }
     }
-
-    document.getElementById("categoria").innerHTML = htmlContentToAppend;
+  }
+  document.getElementById("categoria").innerHTML = htmlContentToAppend;
 }
 
 //Función que muestra los items ordenados, se invoca al clickear los botones correspondientes con el parámetro ORDER_XX_BY_XX que definimos al principio y que le damos valor en la funcion sortProducts
 function sortAndShowProducts(sortCriteria, dataArray) {
+  let currentSortCriteria = sortCriteria;
 
-   currentSortCriteria = sortCriteria;
-
-   if (dataArray != undefined) {
-     currentProducts.products = dataArray;
-   }
-
-   currentProducts.products = sortProducts(currentSortCriteria, currentProducts.products);
-
-   // Mostrar la lista de productos ordenada
-   showData(currentProducts.products);
+  if (dataArray != undefined) {
+    currentProducts.products = dataArray;
   }
-  
-  //BOTON ORDEN ASCENDENTE
-  document.getElementById("sortAsc").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_ASC_BY_NAME);
-});
-//BOTON ORDEN DESCENDENTE
-document.getElementById("sortDesc").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_DESC_BY_NAME);
-});
+  currentProducts.products = sortProducts(
+    currentSortCriteria,
+    currentProducts.products
+  );
+  // Mostrar la lista de productos ordenada
+  showData(currentProducts.products);
+}
+
 //BOTON ORDENAR X RELEVANCIA (CANTIDAD DE VENDIDOS)
-document.getElementById("sortByCount").addEventListener("click", function() {
-    sortAndShowProducts(ORDER_BY_SOLD_COUNT);
+document.getElementById("sortByCount").addEventListener("click", function () {
+  sortAndShowProducts(ORDER_BY_SOLD_COUNT);
 });
+
 //BOTON LIMPIAR
-document.getElementById("clearRangeFilter").addEventListener("click", function() {
+document
+  .getElementById("clearRangeFilter")
+  .addEventListener("click", function () {
     document.getElementById("rangeFilterCountMin").value = "";
     document.getElementById("rangeFilterCountMax").value = "";
 
@@ -122,25 +136,53 @@ document.getElementById("clearRangeFilter").addEventListener("click", function()
     maxCount = undefined;
 
     showData(currentProducts.products);
-});
+  });
+
 //BOTON FILTRAR
-document.getElementById("rangeFilterCount").addEventListener("click", function() {
-  // Obtener el mínimo y máximo de los intervalos para filtrar por cantidad
-  // de productos disponibles.
-  minCount = document.getElementById("rangeFilterCountMin").value;
-  maxCount = document.getElementById("rangeFilterCountMax").value;
+document
+  .getElementById("rangeFilterCount")
+  .addEventListener("click", function () {
+    // Obtener el mínimo y máximo de los intervalos para filtrar por cantidad
+    // de productos disponibles.
+    minCount = document.getElementById("rangeFilterCountMin").value;
+    maxCount = document.getElementById("rangeFilterCountMax").value;
 
-  if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0) {
+    if (minCount != undefined && minCount != "" && parseInt(minCount) >= 0) {
       minCount = parseInt(minCount);
-  } else {
+    } else {
       minCount = undefined;
-  }
+    }
 
-  if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0) {
+    if (maxCount != undefined && maxCount != "" && parseInt(maxCount) >= 0) {
       maxCount = parseInt(maxCount);
-  } else {
+    } else {
       maxCount = undefined;
-  }
+    }
 
-  showData(currentProducts.products);
+    showData(currentProducts.products);
+  });
+  
+//BOTONES ORDENAR X PRECIO
+document
+  .getElementById("sortByPriceAsc")
+  .addEventListener("click", function () {
+    sortAndShowProducts(ORDER_ASC_BY_PRICE);
+  });
+document
+  .getElementById("sortByPriceDesc")
+  .addEventListener("click", function () {
+    sortAndShowProducts(ORDER_DESC_BY_PRICE);
+  });
+
+//FUNCIONALIDAD BUSCADOR
+document.addEventListener("keyup", (e) => {
+  if (e.target.matches("#buscador")) {
+    const texto = e.target.value.toLowerCase();
+
+    const busquedaProducto = currentProducts.products.filter((product) =>
+      product.name.toLowerCase().includes(texto)
+    );
+
+    showData(busquedaProducto);
+  }
 });

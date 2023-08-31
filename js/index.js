@@ -21,4 +21,8 @@ if (!(guardado || noguardado)){
 
 const usuario = document.getElementById("usuario");
 
-usuario.innerHTML += localStorage.getItem("user")
+if (localStorage.getItem("user") === null) {
+    usuario.innerHTML += sessionStorage.getItem("user");
+} else {
+    usuario.innerHTML += localStorage.getItem("user");
+}
