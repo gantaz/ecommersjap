@@ -1,7 +1,7 @@
 const PRODUCTS_DATA =
-  "https://japceibal.github.io/emercado-api/cats_products/" +
-  localStorage.getItem("catID") +
-  ".json";
+"https://japceibal.github.io/emercado-api/cats_products/" +
+localStorage.getItem("catID") +
+".json";
 const categoria = document.getElementById("categoria");
 
 //Se declaran nuevas variables para las funciones de orden y filtrado
@@ -11,6 +11,20 @@ const ORDER_DESC_BY_PRICE = "Desc.";
 let currentProducts = undefined;
 let minCount = undefined;
 let maxCount = undefined;
+
+//Modificación del fetch para que la data obtenida se guarde en currentProducts xq me daba problema la anterior version del fetch que llamaba directamente a la data desde la función
+fetch(PRODUCTS_DATA)
+.then((response) => response.json())
+.then((data) => {
+  currentProducts = data;
+  showData(currentProducts.products);
+});
+
+//Función que se usa en el showData para que al hacer click en un producto se le llame y guarde su id en el local storage
+function setProductID(id) {
+  localStorage.setItem("productID", id);
+  window.location = "products.html";
+}
 
 //Funcion para ordenar productos alfabeticamente y cantidad vendidos
 function sortProducts(criteria, array) {
@@ -59,19 +73,7 @@ function sortProducts(criteria, array) {
   return result;
 }
 
-//Función que se usa en el showData para que al hacer click en un producto se le llame y guarde su id en el local storage
-function setProductID(id) {
-  localStorage.setItem("productID", id);
-  window.location = "products.html";
-}
 
-//Modificación del fetch para que la data obtenida se guarde en currentProducts xq me daba problema la anterior version del fetch que llamaba directamente a la data desde la función
-fetch(PRODUCTS_DATA)
-  .then((response) => response.json())
-  .then((data) => {
-    currentProducts = data;
-    showData(currentProducts.products);
-  });
 
 //Modificaciones de la función: se declara variable vacía a la que se le va agregando el contenido html con el inner.html a medida que va iterando
 //
