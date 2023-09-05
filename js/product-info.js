@@ -35,23 +35,27 @@ fetch(PRODUCTS_INFO)
         console.error("Error al cargar los datos del producto:", error);
     });
 
-fetch(COMMENTS_LIST)
+fetch(COMMENTS_LIST)  // fetch para cargar los comentarios de cada producto con su respectivo puntaje 
     .then((response) => response.json())
     .then((comment) => {
         if (comment.length > 0) {
             let htmlContentToAppend = "";
             for (let i = 0; i <= comment.length; i++) {
                 let comentario = comment[i]
-                localStorage.setItem("score", comentario.score)
+
 
                 htmlContentToAppend += `<div><div> <b>${comentario.user}:</b> ${comentario.description} <br> ${comentario.dateTime}</div></div>`
-                productCommentsContainer.innerHTML = htmlContentToAppend
+                productCommentsContainer.innerHTML = htmlContentToAppend;
 
-                for (let i = 1; i <= localStorage.getItem("score"); i++) {
+                for (let j = 1; j <= 5; j++) {
 
-                    htmlContentToAppend += `<span class="fa fa-star checked"></span>`
+                    if (j <= comentario.score) {
+                        htmlContentToAppend += `<span class="fa fa-star checked"></span>`
+
+                    } else { htmlContentToAppend += `<span class="fa fa-star "></span>` }
+
                 }
-
+                productCommentsContainer.innerHTML = htmlContentToAppend;
             }
 
         } else {
@@ -61,5 +65,54 @@ fetch(COMMENTS_LIST)
     .catch((error) => {
         console.error("Error al cargar los comentarios del producto:", error);
     });
+
+
+const usuario = document.getElementById("usuario");
+
+if (localStorage.getItem("user") === null) {
+    usuario.innerHTML += sessionStorage.getItem("user");
+} else {
+    usuario.innerHTML += localStorage.getItem("user");
+}
+
+
+function sendComment() {
+
+    const rate = document.getElementById("rate").value
+    const desc = document.getElementById("commentText").value
+    const prod = localStorage.getItem("productID")
+    let fecha = new Date();
+
+
+
+
+
+
+    url = "https://crudcrud.com/api/adc54d7744e946cd8ffc1851accabb6d/pruebasComentarios" // recurso para probar formato de envio, deberiamos usar la api COMMENTS_LIST
+    fetch(url, {
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        method: 'POST',
+        body: JSON.stringify({
+
+            product: prod,
+            score: rate,
+            description: desc,
+            user: usuario.textContent,
+            date: fecha.toLocaleString(),
+        })
+    })
+
+}
+
+
+
+document.getElementById("sendCommentBtn").addEventListener("click", sendComment)
+
+
+
+
+
+
+
 
 
