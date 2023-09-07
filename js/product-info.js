@@ -35,27 +35,31 @@ fetch(PRODUCTS_INFO)
         console.error("Error al cargar los datos del producto:", error);
     });
 
-fetch(COMMENTS_LIST)
+    fetch(COMMENTS_LIST)
     .then((response) => response.json())
-    .then((comment) => {
-        if (comment.length > 0) {
+    .then((comments) => {
+        if (comments.length > 0) {
             let htmlContentToAppend = "";
-            for (let i = 0; i <= comment.length; i++) {
-                let comentario = comment[i]
-                localStorage.setItem("score", comentario.score)
+            for (let i = 0; i < comments.length; i++) {
+                let comentario = comments[i];
+                localStorage.setItem("score", comentario.score);
 
-                htmlContentToAppend += `<div><div> <b>${comentario.user}:</b> ${comentario.description} <br> ${comentario.dateTime}</div></div>`
-                productCommentsContainer.innerHTML = htmlContentToAppend
+                htmlContentToAppend += `<div><div> <b>${comentario.user}:</b> ${comentario.description} <br> ${comentario.dateTime}</div>`;
 
-                for (let i = 1; i <= localStorage.getItem("score"); i++) {
-
-                    htmlContentToAppend += `<span class="fa fa-star checked"></span>`
+                for (let j = 1; j <= 5; j++) {
+                    if (j <= comentario.score) {
+                        htmlContentToAppend += `<span class="fa fa-star checked"></span>`;
+                    } else {
+                        htmlContentToAppend += `<span class="fa fa-star"></span>`;
+                    }
                 }
 
+                htmlContentToAppend += `</div>`; // Cerrar el div del comentario
             }
 
+            productCommentsContainer.innerHTML = htmlContentToAppend;
         } else {
-            productCommentsContainer.innerHTML = `<div> <p>No hay comentarios</p> </div>`
+            productCommentsContainer.innerHTML = `<div> <p>No hay comentarios</p> </div>`;
         }
     })
     .catch((error) => {
