@@ -44,7 +44,7 @@ fetch(COMMENTS_LIST)  // fetch para cargar los comentarios de cada producto con 
                 let comentario = comment[i]
 
 
-                htmlContentToAppend += `<div><div> <b>${comentario.user}:</b> ${comentario.description} <br> ${comentario.dateTime}</div></div>`
+                htmlContentToAppend += `<div> <b>${comentario.user}:</b> ${comentario.description} <br> ${comentario.dateTime}</div>`
                 productCommentsContainer.innerHTML = htmlContentToAppend;
 
                 for (let j = 1; j <= 5; j++) {
@@ -83,12 +83,7 @@ function sendComment() {
     const prod = localStorage.getItem("productID")
     let fecha = new Date();
 
-
-
-
-
-
-    url = "https://crudcrud.com/api/adc54d7744e946cd8ffc1851accabb6d/pruebasComentarios" // recurso para probar formato de envio, deberiamos usar la api COMMENTS_LIST
+    url = "https://crudcrud.com/api/adc54d7744e946cd8ffc1851accabb6d/comentariospruebas" // recurso para probar formato de envio, deberiamos usar la api COMMENTS_LIST
     fetch(url, {
         headers: { "Content-Type": "application/json; charset=utf-8" },
         method: 'POST',
@@ -98,15 +93,21 @@ function sendComment() {
             score: rate,
             description: desc,
             user: usuario.textContent,
-            date: fecha.toLocaleString(),
+            dateTime: fecha.toLocaleString(),
         })
     })
 
 }
 
+function commentAlert(){
+    alert("Comentario enviado correctamente!")
+}
+
 
 
 document.getElementById("sendCommentBtn").addEventListener("click", sendComment)
+document.getElementById("sendCommentBtn").addEventListener("click", commentAlert)
+
 
 
 
