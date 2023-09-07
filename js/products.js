@@ -62,7 +62,7 @@ function sortProducts(criteria, array) {
 //Función que se usa en el showData para que al hacer click en un producto se le llame y guarde su id en el local storage
 function setProductID(id) {
   localStorage.setItem("productID", id);
-  window.location = "products.html";
+  window.location = "product-info.html";
 }
 
 //Modificación del fetch para que la data obtenida se guarde en currentProducts xq me daba problema la anterior version del fetch que llamaba directamente a la data desde la función
