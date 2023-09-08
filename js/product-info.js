@@ -1,10 +1,12 @@
-const PRODUCTS_INFO =
-    "https://japceibal.github.io/emercado-api/products/" + localStorage.getItem("productID") + ".json";
+const PRODUCTS_INFO ="https://japceibal.github.io/emercado-api/products/" + localStorage.getItem("productID") + ".json";
+
 const productInfoContainer = document.getElementById("producto");
 
 const COMMENTS_LIST = "https://japceibal.github.io/emercado-api/products_comments/" + localStorage.getItem("productID") + ".json";
 
 const productCommentsContainer = document.getElementById("comentarios")
+
+
 
 fetch(PRODUCTS_INFO)
     .then((response) => response.json())
@@ -34,6 +36,11 @@ fetch(PRODUCTS_INFO)
     .catch((error) => {
         console.error("Error al cargar los datos del producto:", error);
     });
+
+
+
+
+
 
 fetch(COMMENTS_LIST)  // fetch para cargar los comentarios de cada producto con su respectivo puntaje 
     .then((response) => response.json())
@@ -67,46 +74,7 @@ fetch(COMMENTS_LIST)  // fetch para cargar los comentarios de cada producto con 
     });
 
 
-const usuario = document.getElementById("usuario");
 
-if (localStorage.getItem("user") === null) {
-    usuario.innerHTML += sessionStorage.getItem("user");
-} else {
-    usuario.innerHTML += localStorage.getItem("user");
-}
-
-
-function sendComment() {
-
-    const rate = document.getElementById("rate").value
-    const desc = document.getElementById("commentText").value
-    const prod = localStorage.getItem("productID")
-    let fecha = new Date();
-
-    url = "https://crudcrud.com/api/adc54d7744e946cd8ffc1851accabb6d/comentariospruebas" // recurso para probar formato de envio, deberiamos usar la api COMMENTS_LIST
-    fetch(url, {
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        method: 'POST',
-        body: JSON.stringify({
-
-            product: prod,
-            score: rate,
-            description: desc,
-            user: usuario.textContent,
-            dateTime: fecha.toLocaleString(),
-        })
-    })
-
-}
-
-function commentAlert(){
-    alert("Comentario enviado correctamente!")
-}
-
-
-
-document.getElementById("sendCommentBtn").addEventListener("click", sendComment)
-document.getElementById("sendCommentBtn").addEventListener("click", commentAlert)
 
 
 
