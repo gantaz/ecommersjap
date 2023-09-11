@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -41,13 +40,13 @@
   <main>
     <div id="producto">
       <div id="product-details">
-        <h2 id="product-name"></h2>
+        <h1 id="product-name"></h1>
         <p id="product-description"></p>
         <p id="product-category"></p>
         <p id="product-price"></p>
       </div>
       <div id="product-images">
-        <h3>Imágenes del producto</h3>
+        <p class="h3">Imágenes del Producto</p>
         <div class="container">
           <div id="product-image-list" class="row text-center text-lg-start">
           </div>
@@ -56,24 +55,24 @@
       <div id="comentarios">
         <p class="h3">Comentarios</p>
       </div>
-
       <div id="comentar">
-
-        <form action="">
-          <p class="lead">Comentar</p>
-          <textarea id="ingresarComentario" name="comment" style="width: 30%;"> </textarea>
-          <p class="lead">Tu puntuación</p>
-          <select id="puntos" style="width: 5%;">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <br> <br>
-          <button id="sendComentario" class="btn btn-primary btn-lg">Enviar</button>
-        </form>
-
+        <div class="panel">
+          <p class="h3">Comentar</p>
+          <div class="panel-body">
+            <textarea class="form-control" rows="2" placeholder="Tu comentario" id="ingresarComentario"></textarea>
+            <div class="mar-top clearfix">
+              <button class="btn btn-sm btn-primary pull-right" type="submit" id="sendComentario"><i
+                  class="fa fa-pencil fa-fw"></i> Enviar</button>
+              <select class="form-select form-select-sm" id="puntos" style="width: 70px;">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="related-products">

@@ -10,10 +10,10 @@ fetch(PRODUCTS_INFO)
     .then((response) => response.json())
     .then((product) => {
         if (product) {
-            document.getElementById("product-name").textContent = product.name;
-            document.getElementById("product-description").textContent = `Descripción: ${product.description}`;
-            document.getElementById("product-category").textContent = `Categoría: ${product.category}`;
-            document.getElementById("product-price").textContent = `Precio: ${product.cost} ${product.currency}`;
+            document.getElementById("product-name").innerHTML += product.name;
+            document.getElementById("product-description").innerHTML += `<b>Descripción:</b> ${product.description}`;
+            document.getElementById("product-category").innerHTML += `<b>Categoría:</b> ${product.category}`;
+            document.getElementById("product-price").innerHTML += `<b>Precio:</b> ${product.cost} ${product.currency}`;
 
             const productImages = document.getElementById("product-image-list");
             product.images.forEach((imageSrc) => {

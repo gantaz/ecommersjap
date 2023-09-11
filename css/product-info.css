@@ -1,20 +1,11 @@
-* {
-    font-family: Raleway;
+/*Padding*/
+#product-details p {
+    margin-bottom: 10px;
 }
 
-.fa-user {
-    padding-right: 0.5em;
-}
-
-.card-title{
-    font-size: 12pt;
-}
-
-#related-products .card {
-    display:inline-block;
-    margin-left: 1em;
-    margin-right: 1em;
-    width: 300px;
+#ingresarComentario {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #producto, #related-products {
@@ -22,26 +13,27 @@
     padding-left: 5em;
 }
 
-#product-details, #comentar, #related-products{
+#comentar, #related-products{
     padding-top: 2em;
 }
 
-& label {
-    cursor: pointer;
+#product-details {
+    padding-top: 2em;
+    padding-bottom: 0.5em;
 }
-&:hover label {
-    color: #ffa500;
+
+/*Icono user comentarios*/
+.fa-user {
+    padding-right: 0.5em;
 }
-& label,
-& label:hover~label {
-    color: gray;
+
+/*Prod. relacionados*/
+#related-products .card {
+    display:inline-block;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 300px;
 }
-& input[type="radio"] {
-    height: 0;
-    left: 0;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    width: 0;
+.card-title{
+    font-size: 12pt;
 }
