@@ -1,0 +1,47 @@
+* {
+    font-family: Raleway;
+}
+
+.fa-user {
+    padding-right: 0.5em;
+}
+
+.card-title{
+    font-size: 12pt;
+}
+
+#related-products .card {
+    display:inline-block;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 300px;
+}
+
+#producto, #related-products {
+    padding-right: 5em;
+    padding-left: 5em;
+}
+
+#product-details, #comentar, #related-products{
+    padding-top: 2em;
+}
+
+& label {
+    cursor: pointer;
+}
+&:hover label {
+    color: #ffa500;
+}
+& label,
+& label:hover~label {
+    color: gray;
+}
+& input[type="radio"] {
+    height: 0;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 0;
+}

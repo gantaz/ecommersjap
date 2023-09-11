@@ -11,6 +11,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/product-info.css" rel="stylesheet">
 </head>
 
 <body>
@@ -39,52 +40,55 @@
   </nav>
   <main>
     <div id="producto">
-      <h2 id="product-name"></h2>
-      <p id="product-description"></p>
-      <p id="product-category"></p>
-      <p id="product-price"></p>
+      <div id="product-details">
+        <h2 id="product-name"></h2>
+        <p id="product-description"></p>
+        <p id="product-category"></p>
+        <p id="product-price"></p>
+      </div>
       <div id="product-images">
-        <h3>Imágenes del Producto</h3>
-        <div id="product-image-list">
+        <h3>Imágenes del producto</h3>
+        <div class="container">
+          <div id="product-image-list" class="row text-center text-lg-start">
+          </div>
         </div>
       </div>
       <div id="comentarios">
-        
+        <p class="h3">Comentarios</p>
       </div>
-
-      <br>
 
       <div id="comentar">
 
-        <form action=""><p class="lead">Comentar</p>
-        <textarea id="ingresarComentario" name="comment" style="width: 30%;" > </textarea>
-        <p class="lead">Tu puntuación</p>
-        <select id="puntos" style="width: 5%;">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+        <form action="">
+          <p class="lead">Comentar</p>
+          <textarea id="ingresarComentario" name="comment" style="width: 30%;"> </textarea>
+          <p class="lead">Tu puntuación</p>
+          <select id="puntos" style="width: 5%;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
           <br> <br>
-        <button id="sendComentario" class="btn btn-primary btn-lg">Enviar</button>
-      </form>
+          <button id="sendComentario" class="btn btn-primary btn-lg">Enviar</button>
+        </form>
 
       </div>
     </div>
-      <div id="related-products">
-        <h3>Productos Relacionados</h3>
-        <ul id="related-product-list">
-        </ul>
+    <div id="related-products">
+      <p class="h3">Productos relacionados</p>
+      <div class="container mt-3" id="related-product-list">
       </div>
-    </div>    
+    </div>
   </main>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">
