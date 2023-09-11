@@ -81,8 +81,14 @@ fetch(PRODUCTS_INFO)
 // variables e ids
 var sendBoton = document.getElementById('sendComentario');
 var comentarioTextArea = document.getElementById('ingresarComentario');
-var puntuacionSelect = document.getElementById('puntos');
+var puntuacionSelect = document.getElementById('estrellas');
 var comentariosContainer = document.getElementById('comentarios');
+
+document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star"></span>'.repeat(5);
+puntuacionSelect.oninput = function() {
+  document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star checked"></span>'.repeat(puntuacionSelect.value);
+  document.getElementById("puntosOup").innerHTML += '<span class="fa fa-star"></span>'.repeat(5 - puntuacionSelect.value);
+}
 
 // boton
 sendBoton.addEventListener('click', function (event) {

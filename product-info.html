@@ -61,15 +61,10 @@
           <div class="panel-body">
             <textarea class="form-control" rows="2" placeholder="Tu comentario" id="ingresarComentario"></textarea>
             <div class="mar-top clearfix">
-              <button class="btn btn-sm btn-primary pull-right" type="submit" id="sendComentario"><i
+              <button class="btn btn btn-primary pull-right" type="submit" id="sendComentario"><i
                   class="fa fa-pencil fa-fw"></i> Enviar</button>
-              <select class="form-select form-select-sm" id="puntos" style="width: 70px;">
-                <option value="1">⭐</option>
-                <option value="2">⭐⭐</option>
-                <option value="3">⭐⭐⭐</option>
-                <option value="4">⭐⭐⭐⭐</option>
-                <option value="5">⭐⭐⭐⭐⭐</option>
-              </select>
+                  <div id="puntosOup"></div>
+                  <input type="range" min="1" max="5" value="1" id="estrellas">
             </div>
           </div>
         </div>

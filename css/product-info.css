@@ -37,3 +37,10 @@
 .card-title{
     font-size: 12pt;
 }
+.form-range {
+  width: 100px;
+}
+
+#estrellas{
+  width: 75px;
+}
