@@ -84,7 +84,7 @@ var comentarioTextArea = document.getElementById('ingresarComentario');
 var puntuacionSelect = document.getElementById('estrellas');
 var comentariosContainer = document.getElementById('comentarios');
 
-document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star"></span>'.repeat(5);
+document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star checked"></span>'+'<span class="fa fa-star"></span>'.repeat(4);
 puntuacionSelect.oninput = function() {
   document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star checked"></span>'.repeat(puntuacionSelect.value);
   document.getElementById("puntosOup").innerHTML += '<span class="fa fa-star"></span>'.repeat(5 - puntuacionSelect.value);
