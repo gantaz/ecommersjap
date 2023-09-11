@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i");
+
+* {
+  font-family: Raleway;
+}
+
+h1,h3,h4 {
+  font-weight: bolder;
+}
+
 .jumbotron,
 .card-body,
 .container,
