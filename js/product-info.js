@@ -10,23 +10,29 @@ fetch(PRODUCTS_INFO)
     .then((response) => response.json())
     .then((product) => {
         if (product) {
-            document.getElementById("product-name").textContent = product.name;
-            document.getElementById("product-description").textContent = `Descripción: ${product.description}`;
-            document.getElementById("product-category").textContent = `Categoría: ${product.category}`;
-            document.getElementById("product-price").textContent = `Precio: ${product.cost} ${product.currency}`;
+            document.getElementById("product-name").innerHTML += product.name;
+            document.getElementById("product-description").innerHTML += `<b>Descripción:</b> ${product.description}`;
+            document.getElementById("product-category").innerHTML += `<b>Categoría:</b> ${product.category}`;
+            document.getElementById("product-price").innerHTML += `<b>Precio:</b> ${product.cost} ${product.currency}`;
 
             const productImages = document.getElementById("product-image-list");
             product.images.forEach((imageSrc) => {
-                const image = document.createElement("img");
-                image.src = imageSrc;
-                productImages.appendChild(image);
-            });
+                productImages.innerHTML +=
+                  `<div class="col-sm-6 col-md-4 mb-3"><a href="` +
+                  imageSrc +
+                  `" target="_blank" class="d-block mb-4 h-100"><img class="img-fluid img-thumbnail" src="` +
+                  imageSrc +
+                  `"></a></div>`;
+              });
             const relatedProductList = document.getElementById("related-product-list");
             product.relatedProducts.forEach((relatedProduct) => {
-                const listItem = document.createElement("li");
-                listItem.innerHTML = `<img src="${relatedProduct.image}" alt="${relatedProduct.name}">${relatedProduct.name}`;
-                relatedProductList.appendChild(listItem);
-            });
+                relatedProductList.innerHTML +=
+                  `<div class="card"><img class="card-img-top" src="` +
+                  relatedProduct.image +
+                  `"><div class="card-body"><h4 class="card-title">` +
+                  relatedProduct.name +
+                  `</h4></div></div>`;
+              });        
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
         }
@@ -34,45 +40,55 @@ fetch(PRODUCTS_INFO)
     .catch((error) => {
         console.error("Error al cargar los datos del producto:", error);
     });
-
+    
     fetch(COMMENTS_LIST)
     .then((response) => response.json())
     .then((comments) => {
-        if (comments.length > 0) {
-            let htmlContentToAppend = "";
-            for (let i = 0; i < comments.length; i++) {
-                let comentario = comments[i];
-                localStorage.setItem("score", comentario.score);
-
-                htmlContentToAppend += `<div><div> <b>${comentario.user}:</b> ${comentario.description} <br> ${comentario.dateTime}</div>`;
-
-                for (let j = 1; j <= 5; j++) {
-                    if (j <= comentario.score) {
-                        htmlContentToAppend += `<span class="fa fa-star checked"></span>`;
-                    } else {
-                        htmlContentToAppend += `<span class="fa fa-star"></span>`;
-                    }
-                }
-
-                htmlContentToAppend += `</div>`; // Cerrar el div del comentario
+      if (comments.length > 0) {
+        let htmlContentToAppend = "";
+        for (let i = 0; i < comments.length; i++) {
+          let comentario = comments[i];
+          localStorage.setItem("score", comentario.score);
+          htmlContentToAppend +=
+            `<div class="card p-3 mt-2"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><i class="fa fa-user"></i><span><small class="font-weight-bold text-primary"><b> ` +
+            comentario.user +
+            `</b></small></span></div><small>` +
+            comentario.dateTime +
+            `</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply"><small class="font-weight-bold">` +
+            comentario.description +
+            `</small></div><div class="icons align-items-center">`;
+          for (let j = 1; j <= 5; j++) {
+            if (j <= comentario.score) {
+              htmlContentToAppend += `<span class="fa fa-star checked"></span>`;
+            } else {
+              htmlContentToAppend += `<span class="fa fa-star"></span>`;
             }
-
-            productCommentsContainer.innerHTML = htmlContentToAppend;
-        } else {
-            productCommentsContainer.innerHTML = `<div> <p>No hay comentarios</p> </div>`;
+          }
+          htmlContentToAppend += `</div></div></div>`; // Cerrar el div del comentario
         }
+        productCommentsContainer.innerHTML += htmlContentToAppend;
+      } else {
+        productCommentsContainer.innerHTML += `<div> <p>No hay comentarios</p> </div>`;
+      }
     })
     .catch((error) => {
-        console.error("Error al cargar los comentarios del producto:", error);
+      console.error("Error al cargar los comentarios del producto:", error);
     });
-
+  
+  
 
 // desafiate
 // variables e ids
 var sendBoton = document.getElementById('sendComentario');
 var comentarioTextArea = document.getElementById('ingresarComentario');
-var puntuacionSelect = document.getElementById('puntos');
+var puntuacionSelect = document.getElementById('estrellas');
 var comentariosContainer = document.getElementById('comentarios');
+
+document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star checked"></span>'+'<span class="fa fa-star"></span>'.repeat(4);
+puntuacionSelect.oninput = function() {
+  document.getElementById("puntosOup").innerHTML = '<span class="fa fa-star checked"></span>'.repeat(puntuacionSelect.value);
+  document.getElementById("puntosOup").innerHTML += '<span class="fa fa-star"></span>'.repeat(5 - puntuacionSelect.value);
+}
 
 // boton
 sendBoton.addEventListener('click', function (event) {
@@ -86,23 +102,22 @@ sendBoton.addEventListener('click', function (event) {
     // Fecha convertida a formato legible string
     var fecha = new Date().toLocaleString();
   
-    // crear div para el comment nuevo y su formato
-    var nuevoComentario = document.createElement('div');
-    nuevoComentario.innerHTML = `
-        <div>
-            <b>${usuario}:</b> ${comentario} <br>
-            ${fecha}
-        </div>
-    `;
-  
-    // Bootstrap estrellas
+    // Comentario a ser agregado
+    let htmlContentToAppend = "";
+    htmlContentToAppend += '<div class="card p-3 mt-2"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><i class="fa fa-user"></i><span><small class="font-weight-bold text-primary"><b>' + usuario + '</b></small></span></div><small>' + fecha + '</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply"><small class="font-weight-bold">' + comentario +
+    '</small></div><div class="icons align-items-center">';
     for (let j = 1; j <= 5; j++) {
         if (j <= puntuacion) {
-            nuevoComentario.innerHTML += `<span class="fa fa-star checked"></span>`;
+          htmlContentToAppend += '<span class="fa fa-star checked"></span>';
         } else {
-            nuevoComentario.innerHTML += `<span class="fa fa-star"></span>`;
+          htmlContentToAppend += '<span class="fa fa-star"></span>';
         }
-    }
+      }
+      htmlContentToAppend += '</div></div></div>'; // Cerrar el div del comentario
+      
+    // crear div para el comment nuevo y su formato
+    var nuevoComentario = document.createElement('div');
+    nuevoComentario.innerHTML = htmlContentToAppend;
   
     // agregar comentario fake al container
     comentariosContainer.appendChild(nuevoComentario);

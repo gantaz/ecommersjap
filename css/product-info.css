@@ -1,0 +1,46 @@
+/*Padding*/
+#product-details p {
+    margin-bottom: 10px;
+}
+
+#ingresarComentario {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#producto, #related-products {
+    padding-right: 5em;
+    padding-left: 5em;
+}
+
+#comentar, #related-products{
+    padding-top: 2em;
+}
+
+#product-details {
+    padding-top: 2em;
+    padding-bottom: 0.5em;
+}
+
+/*Icono user comentarios*/
+.fa-user {
+    padding-right: 0.5em;
+}
+
+/*Prod. relacionados*/
+#related-products .card {
+    display:inline-block;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 300px;
+}
+.card-title{
+    font-size: 12pt;
+}
+.form-range {
+  width: 100px;
+}
+
+#estrellas{
+  width: 75px;
+}

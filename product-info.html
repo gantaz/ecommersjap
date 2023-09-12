@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/product-info.css" rel="stylesheet">
 </head>
 
 <body>
@@ -39,52 +39,50 @@
   </nav>
   <main>
     <div id="producto">
-      <h2 id="product-name"></h2>
-      <p id="product-description"></p>
-      <p id="product-category"></p>
-      <p id="product-price"></p>
+      <div id="product-details">
+        <h1 id="product-name"></h1>
+        <p id="product-description"></p>
+        <p id="product-category"></p>
+        <p id="product-price"></p>
+      </div>
       <div id="product-images">
-        <h3>Imágenes del Producto</h3>
-        <div id="product-image-list">
+        <p class="h3">Imágenes del Producto</p>
+        <div class="container">
+          <div id="product-image-list" class="row text-center text-lg-start">
+          </div>
         </div>
       </div>
       <div id="comentarios">
-        
+        <p class="h3">Comentarios</p>
       </div>
-
-      <br>
-
       <div id="comentar">
-
-        <form action=""><p class="lead">Comentar</p>
-        <textarea id="ingresarComentario" name="comment" style="width: 30%;" > </textarea>
-        <p class="lead">Tu puntuación</p>
-        <select id="puntos" style="width: 5%;">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-          <br> <br>
-        <button id="sendComentario" class="btn btn-primary btn-lg">Enviar</button>
-      </form>
-
+        <div class="panel">
+          <p class="h3">Comentar</p>
+          <div class="panel-body">
+            <textarea class="form-control" rows="2" placeholder="Tu comentario" id="ingresarComentario"></textarea>
+            <div class="mar-top clearfix">
+              <button class="btn btn btn-primary pull-right" type="submit" id="sendComentario"><i
+                  class="fa fa-pencil fa-fw"></i> Enviar</button>
+                  <div id="puntosOup"></div>
+                  <input type="range" min="1" max="5" value="1" id="estrellas">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-      <div id="related-products">
-        <h3>Productos Relacionados</h3>
-        <ul id="related-product-list">
-        </ul>
+    <div id="related-products">
+      <p class="h3">Productos relacionados</p>
+      <div class="container mt-3" id="related-product-list">
       </div>
-    </div>    
+    </div>
   </main>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">
