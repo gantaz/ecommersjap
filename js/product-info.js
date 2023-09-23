@@ -6,6 +6,12 @@ const COMMENTS_LIST = "https://japceibal.github.io/emercado-api/products_comment
 
 const productCommentsContainer = document.getElementById("comentarios")
 
+//Funcion setProductID de products.js
+function setProductID(id) {
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html";
+}
+
 fetch(PRODUCTS_INFO)
     .then((response) => response.json())
     .then((product) => {
@@ -26,11 +32,11 @@ fetch(PRODUCTS_INFO)
             const relatedProductList = document.getElementById("related-product-list");
             product.relatedProducts.forEach((relatedProduct) => {
                 relatedProductList.innerHTML +=
-                  `<div class="card"><img class="card-img-top" src="` +
+                  `<a href="javascript:setProductID(`+ relatedProduct.id +`)"><div class="card"><img class="card-img-top" src="` +
                   relatedProduct.image +
                   `"><div class="card-body"><h4 class="card-title">` +
                   relatedProduct.name +
-                  `</h4></div></div>`;
+                  `</h4></div></div></a>`;
               });
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
