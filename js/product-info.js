@@ -16,14 +16,13 @@ fetch(PRODUCTS_INFO)
             document.getElementById("product-price").innerHTML += `<b>Precio:</b> ${product.cost} ${product.currency}`;
 
             const productImages = document.getElementById("product-image-list");
-            product.images.forEach((imageSrc) => {
-                productImages.innerHTML +=
-                  `<div class="col-sm-6 col-md-4 mb-3"><a href="` +
-                  imageSrc +
-                  `" target="_blank" class="d-block mb-4 h-100"><img class="img-fluid img-thumbnail" src="` +
-                  imageSrc +
-                  `"></a></div>`;
-              });
+            product.images.forEach((imageSrc, index) => {
+              const claseCarousel = index === 0 ? "carousel-item active" : "carousel-item";
+              productImages.innerHTML +=
+              `<div class="`+claseCarousel+`">
+                <img src="`+imageSrc+`" class="d-block w-100">
+              </div>`;
+            });
             const relatedProductList = document.getElementById("related-product-list");
             product.relatedProducts.forEach((relatedProduct) => {
                 relatedProductList.innerHTML +=
@@ -32,7 +31,7 @@ fetch(PRODUCTS_INFO)
                   `"><div class="card-body"><h4 class="card-title">` +
                   relatedProduct.name +
                   `</h4></div></div>`;
-              });        
+              });
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
         }
