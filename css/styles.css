@@ -199,3 +199,6 @@ a.custom-card:hover {
   color: orange;
 }
 
+#cerrarsesion{
+  cursor:pointer
+}
