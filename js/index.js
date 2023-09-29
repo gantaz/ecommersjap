@@ -13,23 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-let guardado = localStorage.getItem("user");
-let noguardado = sessionStorage.getItem("user");
-if (!(guardado || noguardado)){
-    window.location.href = "login.html";
-}
 
-const usuario = document.getElementById("usuario");
 
-if (localStorage.getItem("user") === null) {
-    usuario.innerHTML += sessionStorage.getItem("user");
-} else {
-    usuario.innerHTML += localStorage.getItem("user");
-}
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("cerrarsesion").addEventListener("click", function () {
-        localStorage.removeItem("user");
-        sessionStorage.removeItem("user");
-        window.location.href = "login.html"
-})})
+
