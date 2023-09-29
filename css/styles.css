@@ -4,7 +4,9 @@
   font-family: Raleway;
 }
 
-h1,h3,h4 {
+h1,
+h3,
+h4 {
   font-weight: bolder;
 }
 
@@ -199,6 +201,6 @@ a.custom-card:hover {
   color: orange;
 }
 
-#cerrarsesion{
-  cursor:pointer
-}
+.dropdown {
+  margin-right: 25px;
+ }
