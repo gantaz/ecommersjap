@@ -6,6 +6,12 @@ const COMMENTS_LIST = "https://japceibal.github.io/emercado-api/products_comment
 
 const productCommentsContainer = document.getElementById("comentarios")
 
+//Funcion setProductID de products.js
+function setProductID(id) {
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html";
+}
+
 fetch(PRODUCTS_INFO)
     .then((response) => response.json())
     .then((product) => {
@@ -16,23 +22,22 @@ fetch(PRODUCTS_INFO)
             document.getElementById("product-price").innerHTML += `<b>Precio:</b> ${product.cost} ${product.currency}`;
 
             const productImages = document.getElementById("product-image-list");
-            product.images.forEach((imageSrc) => {
-                productImages.innerHTML +=
-                  `<div class="col-sm-6 col-md-4 mb-3"><a href="` +
-                  imageSrc +
-                  `" target="_blank" class="d-block mb-4 h-100"><img class="img-fluid img-thumbnail" src="` +
-                  imageSrc +
-                  `"></a></div>`;
-              });
+            product.images.forEach((imageSrc, index) => {
+              const claseCarousel = index === 0 ? "carousel-item active" : "carousel-item";
+              productImages.innerHTML +=
+              `<div class="`+claseCarousel+`">
+                <img src="`+imageSrc+`" class="d-block w-100">
+              </div>`;
+            });
             const relatedProductList = document.getElementById("related-product-list");
             product.relatedProducts.forEach((relatedProduct) => {
                 relatedProductList.innerHTML +=
-                  `<div class="card"><img class="card-img-top" src="` +
+                  `<a href="javascript:setProductID(`+ relatedProduct.id +`)"><div class="card"><img class="card-img-top" src="` +
                   relatedProduct.image +
                   `"><div class="card-body"><h4 class="card-title">` +
                   relatedProduct.name +
-                  `</h4></div></div>`;
-              });        
+                  `</h4></div></div></a>`;
+              });
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
         }
