@@ -204,3 +204,54 @@ a.custom-card:hover {
 .dropdown {
   margin-right: 9vh;
 }
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  left: -5px;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border: 1px solid black;
+  -webkit-transition: .8s;
+  transition: .8s;
+  border-color:black;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0;
+  bottom: -3px;
+  background-color: white;
+  -webkit-transition: .8s;
+  transition: .8s;
+  border: 1px solid black;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(40px);
+  -ms-transform: translateX(40px);
+  transform: translateX(40px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
