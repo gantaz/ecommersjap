@@ -12,20 +12,7 @@ fetch(carrito)
     const precio = product.unitCost;
     const foto = product.image;
 
-    const htmlContentToAppend = `
-    <div class="container" >
-    <br>
-    <h1>Mi carrito</h1>
-    <br>
-    <table class="table" id="carrito">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Costo</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
+    const htmlContentToAppend = ` 
         <tbody>
             <tr style="vertical-align: middle;">
             <td style="vertical-align: middle;"><img src=${foto} class= "img-fluid" style="width: 7em; height: 5em; vertical-align: middle; margin-right: 20px; ">${name}</td>
@@ -34,13 +21,10 @@ fetch(carrito)
                 <td class="subtotal"><span id="subtotal">${precio} USD</span></td>
             </tr>
         </tbody>
-    </table>
-    
-    <button id="agregarProducto" class="btn btn-primary">Comprar</button>
-</div>`;
+ `;
 
  
-    document.querySelector("#productos").innerHTML = htmlContentToAppend;
+    document.querySelector("#productos").innerHTML += htmlContentToAppend;
 
 
     const cantidadInput = document.getElementById("cantidadInput");
@@ -57,4 +41,30 @@ fetch(carrito)
   });
 
 
+  document.addEventListener("DOMContentLoaded", (event) => {
 
+function carritoLocal() {
+  let local = localStorage.getItem("carrito");
+  let product = JSON.parse(local);
+  
+  
+
+  const name = product.name;
+  const precio = product.unitCost;
+  const foto = product.image;
+
+  const htmlContentToAppend = `
+ 
+          <tr style="vertical-align: middle;">
+          <td style="vertical-align: middle;"><img src=${foto} class= "img-fluid" style="width: 7em; height: 5em; vertical-align: middle; margin-right: 20px; ">${name}</td>
+              <td>${precio} USD</td>
+              <td><input type="number" value="1" min="1" id="cantidadInput">                </td>
+              <td class="subtotal"><span id="subtotal">${precio} USD</span></td>
+          </tr>
+      </tbody>
+ `;
+
+  document.querySelector("#productos").innerHTML += htmlContentToAppend;
+}
+carritoLocal();
+});

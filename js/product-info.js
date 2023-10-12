@@ -38,6 +38,14 @@ fetch(PRODUCTS_INFO)
                   relatedProduct.name +
                   `</h4></div></div></a>`;
               });
+
+              //Comentarios locales
+              var stringProducts = JSON.stringify(product)
+              var comprar = document.getElementById("buy");
+              comprar.addEventListener("click", function () {
+              localStorage.setItem("carrito",stringProducts)
+              });
+
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
         }
