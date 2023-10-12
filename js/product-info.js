@@ -39,11 +39,11 @@ fetch(PRODUCTS_INFO)
                   `</h4></div></div></a>`;
               });
 
-              //Comentarios locales
+              //Carrito local
               var stringProducts = JSON.stringify(product)
               var comprar = document.getElementById("buy");
               comprar.addEventListener("click", function () {
-              localStorage.setItem("carrito",stringProducts)
+                 localStorage.setItem("carrito",stringProducts)
               });
 
         } else {
