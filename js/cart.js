@@ -1,6 +1,6 @@
 const input = document.getElementById("cantidadInput");
 let user = localStorage.getItem("user")|| sessionStorage.getItem("user");
-let carrito = "https://japceibal.github.io/emercado-api/user_cart/"+user+".json";
+let carrito = "https://japceibal.github.io/emercado-api/user_cart/"+user+".json"; 
 
 fetch(carrito)
   .then((response) => response.json())
