@@ -36,14 +36,16 @@ fetch(carrito)
     console.error("Error al cargar el producto: " + error);
   });
 
+//Función para mostrar los productos guardados en el local storage
 function carritoLocal() {
-  let product = JSON.parse(localStorage.getItem("carrito"));
+  let products = JSON.parse(localStorage.getItem("carrito"));
+  //Para cada producto 
+  products.forEach((product) => {
+    const name = product.name;
+    const precio = product.cost;
+    const foto = product.images[0];
 
-  const name = product.name;
-  const precio = product.cost;
-  const foto = product.images[0];
-
-  const htmlContentToAppend = `
+    const htmlContentToAppend = `
           <tr style="vertical-align: middle;">
           <td style="vertical-align: middle;"><img src=${foto} class= "img-fluid" style="width: 7em; height: 5em; vertical-align: middle; margin-right: 20px; ">${name}</td>
               <td>${precio} USD</td>
@@ -53,6 +55,7 @@ function carritoLocal() {
       </tbody>
  `;
 
-  document.querySelector("#productos").innerHTML += htmlContentToAppend;
+    document.querySelector("#productos").innerHTML += htmlContentToAppend;
+  });
 }
 carritoLocal();

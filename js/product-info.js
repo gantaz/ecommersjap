@@ -38,12 +38,20 @@ fetch(PRODUCTS_INFO)
                   relatedProduct.name +
                   `</h4></div></div></a>`;
               });
-
+              
               //Carrito local
-              var stringProducts = JSON.stringify(product)
+              var stringProducts = (product);
               var comprar = document.getElementById("buy");
               comprar.addEventListener("click", function () {
-                 localStorage.setItem("carrito",stringProducts)
+                //      localStorage.setItem("carrito",stringProducts)
+                let listaItems = JSON.parse(localStorage.getItem('carrito')) || [];
+
+                 let nuevoItem = stringProducts;
+
+                 listaItems.push(nuevoItem);
+             
+                 localStorage.setItem('carrito', JSON.stringify(listaItems));
+             
               });
 
         } else {
