@@ -38,6 +38,18 @@ fetch(PRODUCTS_INFO)
                   relatedProduct.name +
                   `</h4></div></div></a>`;
               });
+              
+              //Carrito local
+              var stringProducts = (product);
+              var comprar = document.getElementById("buy");
+              comprar.addEventListener("click", function () {
+                 let listaItems = JSON.parse(localStorage.getItem('carrito')) || [];
+                 let nuevoItem = stringProducts;
+                 listaItems.push(nuevoItem);
+                 localStorage.setItem('carrito', JSON.stringify(listaItems));
+             
+              });
+
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
         }

@@ -55,11 +55,58 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
+   
+<div>
+  <div class="container" >
+    <br>
+    <h1>Mi carrito</h1>
+    <br>
+    <table class="table" id="carrito">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Costo</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody id="productos">
+ 
+        </tbody>
+    </table>
+    
+    <button id="agregarProducto" class="btn btn-success btn-lg">Comprar</button>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="dropdown">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Tipo de envío
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+      <li><a class="dropdown-item" href="#">Premium 2 a 5 días (15%)</a></li>
+      <li><a class="dropdown-item" href="#">Express 5 a 8 días (7%)</a></li>
+      <li><a class="dropdown-item" href="#">Standard 12 a 15 días (5%)</a></li>
+    </ul>
+  </div>
+  <div class="row">
+    <h3 class="h4 mt-3 mb-3">Dirección</h3>
+<div class="col">
+  <label for="exampleFormControlInput1" class="form-label">Calle</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1">
+  <label for="exampleFormControlInput1" class="form-label">Esquina</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" >
+</div>
+<div class="col">
+  <label for="exampleFormControlInput1" class="form-label">Número</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" >
+</div>
+  </div>
+</div>
+
+
+
   </main>
   <footer class="text-muted">
     <div class="container">
