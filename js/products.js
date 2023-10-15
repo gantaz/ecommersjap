@@ -88,13 +88,13 @@ function showData(dataArray) {
     ) {
       htmlContentToAppend += `<div onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
             <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                     <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
                 </div>
-                <div class="col">
+                <div class="col-8">
                     <div class="d-flex w-100 justify-content-between">
-                        <h4 class="mb-1">${product.name} - ${product.currency} ${product.cost}</h4>
-                        <small class="text-muted">${product.soldCount} Vendidos</small>
+                        <h4 class="mb-1 sm-fs-6">${product.name} - ${product.currency} ${product.cost}</h4>
+                        <small class="text-muted text-end">${product.soldCount} Vendidos</small>
                     </div>
                     <p class="mb-1">${product.description}</p>
                 </div>

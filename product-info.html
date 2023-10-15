@@ -31,41 +31,39 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <div class="dropdown">
           <li class="nav-item">
-            <a class="nav-link" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-            <ul class="dropdown-menu" aria-labelledby="usuario">
-              <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart" style="margin-right:4.5px;"></i> Mi carrito</a></li>
-              <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user" style="margin-left:3px; margin-right:5px;"></i> Mi perfil</a></li>
+            <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuario">
+              <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart iconos"></i> Mi carrito</a></li>
+              <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user iconos"></i> Mi perfil</a></li>
               
               <!-- Modo oscuro -->
               <li>
-                <i class="fa fa-moon fa-lg" style="vertical-align: middle; margin-left:18px;"></i>
-                <label class="switch" style="vertical-align: middle; margin-left:5px;">
-                 <input type="checkbox" id="btnDarkMode">
-                 <span class="slider round" style="width: 60px; height: 15px;"></span>
-               </label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="btnDarkMode">
+                  <label class="form-check-label" for="btnDarkMode"><i class="fa fa-moon"></i></label>
+                </div>
              </li>
 
-             <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key" style="margin-left:3px; margin-right:2px;"></i> Cerrar sesión</a></li>
+             <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key iconos"></i> Cerrar sesión</a></li>
             </ul>
+          </div>
           </li>
-        </div>
         </ul>
       </div>
     </div>
   </nav>
-  <main>
+  <main class="container">
     <div id="producto">
       <div id="product-details">
-        <h1 id="product-name"></h1>
-        <p id="product-description"></p>
-        <p id="product-category"></p>
-        <p id="product-price"></p>
+        <h2 class="text-center p-4" id="product-name"></h2>
+        <p class="mb-1" id="product-description"></p>
+        <p class="mb-1" id="product-category"></p>
+        <p class="mb-1" id="product-price"></p>
       </div>
       <div id="product-images">
-        <p class="h3">Imágenes del Producto</p>
-      
+        <h4 class="mb-3 mt-4">Imágenes del Producto</h4>
         <!--Carousel-->
         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
           <div id="product-image-list" class="carousel-inner">
@@ -83,28 +81,31 @@
           </button>
         </div>
       </div>
-      <button class="btn btn-success btn-lg mt-3 mb-3" id="buy">Comprar</button>
+      <button class="btn btn-success btn-lg mt-3" id="buy"><i class="fa fa-shopping-cart"></i> Comprar</button>
       <div id="comentarios">
-        <p class="h3">Comentarios</p>
+        <h4 class="mb-3 mt-4">Comentarios</h4>
       </div>
       <div id="comentar">
         <div class="panel">
-          <p class="h3">Comentar</p>
           <div class="panel-body">
+            <h4 class="mb-3 mt-4">Comentar</h4>
             <textarea class="form-control" rows="2" placeholder="Tu comentario" id="ingresarComentario"></textarea>
-            <div class="mar-top clearfix">
-              <button class="btn btn btn-primary pull-right" type="submit" id="sendComentario"><i
-                  class="fa fa-pencil-alt"></i> Enviar</button>
-              <div id="puntosOup"></div>
-              <input type="range" min="1" max="5" value="1" id="estrellas">
+            <div class="row">
+              <div class="col-8">
+                <button class="btn btn btn-primary mb-2 mt-2" type="submit" id="sendComentario"><i class="fa fa-pencil-alt"></i> Enviar</button>
+              </div>
+              <div class="col-4 text-end">
+                <div class="pt-2 text-nowrap" id="puntosOup"></div>
+                <input class="form-range" type="range" min="1" max="5" value="1" id="estrellas">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div id="related-products">
-      <p class="h3">Productos relacionados</p>
-      <div class="container mt-3" id="related-product-list">
+      <h4 class="mb-3 mt-4">Productos relacionados</h4>
+      <div class="row row-cols-2 row-cols-md-3 g-4" id="related-product-list">
       </div>
     </div>
   </main>

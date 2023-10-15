@@ -13,14 +13,12 @@ fetch(carrito)
     const foto = product.image;
 
     const htmlContentToAppend = ` 
-        <tbody>
-            <tr style="vertical-align: middle;">
-            <td style="vertical-align: middle;"><img src=${foto} class= "img-fluid" style="width: 7em; height: 5em; vertical-align: middle; margin-right: 20px; ">${name}</td>
-                <td>${precio} USD</td>
-                <td><input type="number" value="1" min="1" id="cantidadInput"></td>
-                <td class="subtotal"><span id="subtotal">${precio} USD</span></td>
-            </tr>
-        </tbody>
+    <tr>
+      <td><img src=${foto} class="img-thumbnail">${name}</td>
+      <td class="centrar">${precio} USD</td>
+      <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput" class="form-control"></td>
+      <td class="centrar"><span id="subtotal">${precio} USD</span></td>
+    </tr>
  `;
 
     document.querySelector("#productos").innerHTML += htmlContentToAppend;
@@ -46,13 +44,12 @@ function carritoLocal() {
     const foto = product.images[0];
 
     const htmlContentToAppend = `
-          <tr style="vertical-align: middle;">
-          <td style="vertical-align: middle;"><img src=${foto} class= "img-fluid" style="width: 7em; height: 5em; vertical-align: middle; margin-right: 20px; ">${name}</td>
-              <td>${precio} USD</td>
-              <td><input type="number" value="1" min="1" id="cantidadInput"></td>
-              <td class="subtotal"><span id="subtotal">${precio} USD</span></td>
-          </tr>
-      </tbody>
+      <tr>
+          <td><img src=${foto} class="img-thumbnail">${name}</td>
+          <td class="centrar">${precio} USD</td>
+          <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput" class="form-control"></td>
+          <td class="centrar"><span id="subtotal">${precio} USD</span></td>
+      </tr>
  `;
 
     document.querySelector("#productos").innerHTML += htmlContentToAppend;

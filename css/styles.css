@@ -45,7 +45,7 @@ nav a {
   padding: 5em inherit;
   margin-bottom: 0;
   background-color: #53C0FB;
-  background: url('../img/cover_back.png');
+  background: #f8f9fa url('../img/cover_back.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -201,10 +201,6 @@ a.custom-card:hover {
   color: orange;
 }
 
-.dropdown {
-  margin-right: 9vh;
-}
-
 
 /* The switch - the box around the slider */ /* fuente: https://www.w3schools.com/howto/howto_css_switch.asp */
 .switch {
@@ -270,4 +266,27 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones and tablet: */
+  .jumbotron {
+    background-size: 160%;
+    background-position: left;
+    max-height: 30vh;
+  }
+  .py-5{
+    padding: 5% !important;
+  }
+  footer {
+    font-size: 9pt;
+  }
+}
+
+.iconos {
+  width: 20px;
+}
+
+.form-switch{
+  margin-left: 15px;
 }
