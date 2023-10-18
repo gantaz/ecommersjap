@@ -5,26 +5,80 @@ let carrito = "https://japceibal.github.io/emercado-api/user_cart/" + user + ".j
 // Array para almacenar info de los productos
 let productos = [];
 
-// Función para actualizar el subtotal de un producto
+
+let subtotalGeneral = 0;  // Variable para almacenar el subtotal general
+
 function updateSubtotal(productIndex) {
-  // Obtener elementos para cant y subtotal del producto
+  // Obtener elementos para cantidad y subtotal del producto
   const cantidadInput = document.getElementById(`cantidadInput${productIndex}`);
   const subtotalElement = document.getElementById(`subtotal${productIndex}`);
 
   if (productos[productIndex]) {
-    // precio oscila entre .cost y .unitCost xq la api y el local tienen unidades distintas
+    // Precio oscila entre .cost y .unitCost porque la API y el local tienen unidades distintas
     const precio = productos[productIndex].cost || productos[productIndex].unitCost;
 
-    // value de cant ingresada por el user
+    // Valor de cantidad ingresada por el usuario
     const cantidad = parseInt(cantidadInput.value);
 
-    // calculo del subtotal
+    // Cálculo del subtotal
     const subtotal = precio * cantidad;
 
-    // mostrar el subtotal
+    // Mostrar el subtotal del producto
     subtotalElement.textContent = `${subtotal} ${productos[productIndex].currency}`;
+
+    // Actualizar el subtotal general sumando el subtotal del producto
+    subtotalGeneral += subtotal;
+
+    // Mostrar el subtotal general
+    const subtotalGeneralElement = document.getElementById('subtotalGeneral');
+    subtotalGeneralElement.textContent = `${subtotalGeneral} ${productos[productIndex].currency}`;
+
   }
 }
+
+function calcularCostoEnvio(porcentaje) {
+  const subtotalGeneralElement = document.getElementById('subtotalGeneral');
+  const subtotal = parseFloat(subtotalGeneralElement.textContent.replace(/[^\d.]/g, '')); // Obtener el subtotal
+
+  const costoEnvio = (porcentaje / 100) * subtotal; // Calcular el costo de envío
+
+  const costoEnvioElement = document.getElementById('costoEnvio');
+  costoEnvioElement.textContent = `${costoEnvio.toFixed(2)} USD`; // Mostrar el costo de envío
+
+  const totalPagar = subtotal + costoEnvio; // Calcular el total a pagar
+
+  const totalPagarElement = document.getElementById('totalPagar');
+  totalPagarElement.innerHTML = `<strong>$${totalPagar.toFixed(2)} USD</strong>`; // Mostrar el total a pagar
+}
+
+// Evento que se activa al hacer clic en una opción del desplegable
+document.querySelectorAll('.dropdown-item').forEach(item => {
+  item.addEventListener('click', (event) => {
+    const selectedOptionId = event.target.id;
+    const dropdown = document.getElementById('dropdownMenuLink');
+    dropdown.setAttribute('data-selected-option-id', selectedOptionId);
+
+    // Calcular el porcentaje basado en el tipo de envío seleccionado
+    let porcentaje = 0;
+    switch (selectedOptionId) {
+      case 'premium':
+        porcentaje = 15;
+        break;
+      case 'express':
+        porcentaje = 7;
+        break;
+      case 'standard':
+        porcentaje = 5;
+        break;
+      default:
+        porcentaje = 0;
+    }
+
+    // Llamar a la función para calcular el costo de envío y actualizar el total a pagar
+    calcularCostoEnvio(porcentaje);
+  });
+});
+
 
 // Cargar producto desde la API
 fetch(carrito)
