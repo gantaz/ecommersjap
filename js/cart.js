@@ -162,3 +162,20 @@ document.addEventListener("input", function (event) {
     updateSubtotal(productIndex);
   }
 });
+
+//Funcionalidad para desactivar forma de pago
+let fop1 = document.getElementById("inputcc");
+let fop2 = document.getElementById("inputtransf");
+let radio1 = document.getElementById("radiocc");
+let radio2 = document.getElementById("radiotransf");
+
+radio1.addEventListener("click", () => {
+  fop1.removeAttribute('disabled', '');
+  fop2.setAttribute('disabled', '');
+});
+
+
+radio2.addEventListener("click", () => {
+  fop2.removeAttribute('disabled', '');
+  fop1.setAttribute('disabled', '');
+});

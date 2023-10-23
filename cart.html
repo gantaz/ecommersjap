@@ -139,33 +139,37 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input class="form-check-input" type="radio" name="radio" id="cc" checked>
-            <label class="form-check-label mb-3" for="cc">
+            <input class="form-check-input" type="radio" name="radio" id="radiocc" checked>
+            <label class="form-check-label mb-3" for="radiocc">
               <i class="fa fa-credit-card"></i> <b>Tarjeta de crédito</b>
             </label>
-            <form class="row g-3">
-              <div class="col-12">
-                <label for="ccnum" class="form-label">Número de tarjeta</label>
-                <input type="number" class="form-control" id="ccnum" min="1000000000000000" >
-              </div>
-              <div class="col-md-6">
-                <label for="ccexp" class="form-label">Vencimiento</label>
-                <input type="text" class="form-control" id="ccexp" placeholder="MM/AA">
-              </div>
-              <div class="col-md-6">
-                <label for="cvc" class="form-label">CVC</label>
-                <input type="number" class="form-control" id="cvc" min="100" >
-              </div>
-            </form>
+            <fieldset id="inputcc">
+              <form class="row g-3">
+                <div class="col-12">
+                  <label for="ccnum" class="form-label">Número de tarjeta</label>
+                  <input type="number" class="form-control" id="ccnum" min="1000000000000000">
+                </div>
+                <div class="col-md-6">
+                  <label for="ccexp" class="form-label">Vencimiento</label>
+                  <input type="text" class="form-control" id="ccexp" placeholder="MM/AA">
+                </div>
+                <div class="col-md-6">
+                  <label for="cvc" class="form-label">CVC</label>
+                  <input type="number" class="form-control" id="cvc" min="100">
+                </div>
+              </form>
+            </fieldset>
             <hr>
-            <input class="form-check-input" type="radio" name="radio" id="transf1">
-            <label class="form-check-label mb-3" for="transf1">
+            <input class="form-check-input" type="radio" name="radio" id="radiotransf">
+            <label class="form-check-label mb-3" for="radiotransf">
               <i class="fa fa-piggy-bank"></i> <b>Transferencia bancaria</b>
             </label>
-            <div class="col">
-              <label for="cuenta" class="form-label">Número de cuenta</label>
-              <input type="number" class="form-control" id="cuenta" min="999999" >
-            </div>
+            <fieldset id="inputtransf" disabled>
+              <div class="col">
+                <label for="cuenta" class="form-label">Número de cuenta</label>
+                <input type="number" class="form-control" id="cuenta" min="999999">
+              </div>
+            </fieldset>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a>Cancelar</a></button>
@@ -174,7 +178,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   </main>
