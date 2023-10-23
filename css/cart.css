@@ -1,4 +1,4 @@
-input[type=number] {
+#carrito input[type=number] {
     max-width: 50px;
     text-align: center;
     margin: auto;
