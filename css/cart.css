@@ -1,0 +1,55 @@
+#carrito input[type=number] {
+    max-width: 50px;
+    text-align: center;
+    margin: auto;
+}
+
+.centrar {
+    text-align: center;
+}
+
+tr img {
+  max-height: 10vw;
+  margin-right: 1rem;
+}
+
+tr {
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    tr {
+        font-size: smaller;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    padding: 15px;
+    text-align: left;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  td:first-child, th:first-child {
+    border-left: 1px solid black;
+  }
+  
+  td:last-child, th:last-child {
+    border-right: 1px solid black;
+  }
+  
+  .total-price {
+    font-weight: bold;
+    text-align: right;
+  }
+  

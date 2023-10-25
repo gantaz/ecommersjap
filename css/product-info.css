@@ -1,88 +1,35 @@
-/*Padding*/
-#product-details p {
-    margin-bottom: 10px;
-}
-
-#ingresarComentario {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#producto, #related-products {
-    padding-right: 5em;
-    padding-left: 5em;
-}
-
-#comentar, #related-products{
-    padding-top: 2em;
-}
-
-#product-details {
-    padding-top: 2em;
-    padding-bottom: 0.5em;
-}
-
 /*Icono user comentarios*/
 .fa-user {
     padding-right: 0.5em;
 }
 
 /*Prod. relacionados*/
-#related-products .card {
-    display:inline-block;
-    margin-left: 1em;
-    margin-right: 1em;
-    width: 300px;
-}
 .card-title{
     font-size: 12pt;
-}
-.form-range {
-  width: 100px;
-}
-
-#estrellas{
-  width: 75px;
-}
-
-.carousel {
-    padding-left: 30vh;
-    padding-right: 30vh;
-    padding-top: 1em;
-    padding-bottom: 2em;
-}
-
-.carousel-control-prev{
-    padding-left: 15vh;
-}
-
-.carousel-control-next{
-    padding-right: 15vh;
-}
-
-
-@media only screen and (max-width: 600px) {
-    .carousel {
-        padding-left: 0vh;
-        padding-right: 0vh;
-    }
-    .carousel-control-prev{
-        padding-left: 0vh;
-    }
-    .carousel-control-next{
-        padding-right: 0vh;
-    }
-}
-
-.d-block {
-    border-radius: 10px;
-}
-
-.fa-angle-left, .fa-angle-right {
+    font-weight: bold;
     color: black;
-    font-size: 50pt;
 }
 
-.carousel-control-prev:hover, .carousel-control-next:hover{
-    text-shadow: 0 0 5px #2a2a2a;
+a {
+    text-decoration: none;
 }
+
+.form-range {
+    max-width: 90px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    background-color: #ffa500;
+}
+  
+input[type="range"]::-moz-range-thumb {
+    background-color: #ffa500;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop and tablet: */
+    .carousel {
+        max-width: 70vw;
+        margin: auto;
+    }
+  }

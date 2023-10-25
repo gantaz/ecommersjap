@@ -26,18 +26,30 @@ fetch(PRODUCTS_INFO)
               const claseCarousel = index === 0 ? "carousel-item active" : "carousel-item";
               productImages.innerHTML +=
               `<div class="`+claseCarousel+`">
-                <img src="`+imageSrc+`" class="d-block w-100">
+                <img src="`+imageSrc+`" class="d-block w-100 rounded">
               </div>`;
             });
             const relatedProductList = document.getElementById("related-product-list");
             product.relatedProducts.forEach((relatedProduct) => {
                 relatedProductList.innerHTML +=
-                  `<a href="javascript:setProductID(`+ relatedProduct.id +`)"><div class="card"><img class="card-img-top" src="` +
+                  `<div class="col"><div class="card"><a href="javascript:setProductID(`+ relatedProduct.id +`)"><img class="card-img-top" src="` +
                   relatedProduct.image +
-                  `"><div class="card-body"><h4 class="card-title">` +
+                  `"><div class="card-body"><h5 class="card-title">` +
                   relatedProduct.name +
-                  `</h4></div></div></a>`;
+                  `</h5></div></a></div></div>`;
               });
+              
+              //Carrito local
+              var stringProducts = (product);
+              var comprar = document.getElementById("buy");
+              comprar.addEventListener("click", function () {
+                 let listaItems = JSON.parse(localStorage.getItem('carrito')) || [];
+                 let nuevoItem = stringProducts;
+                 listaItems.push(nuevoItem);
+                 localStorage.setItem('carrito', JSON.stringify(listaItems));
+                 window.location = "cart.html"
+              });
+
         } else {
             productInfoContainer.innerHTML = "Producto no encontrado";
         }
@@ -61,7 +73,7 @@ fetch(PRODUCTS_INFO)
             comentario.dateTime +
             `</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply"><small class="font-weight-bold">` +
             comentario.description +
-            `</small></div><div class="icons align-items-center">`;
+            `</small></div><div class="text-end text-nowrap">`;
           for (let j = 1; j <= 5; j++) {
             if (j <= comentario.score) {
               htmlContentToAppend += `<span class="fa fa-star checked"></span>`;

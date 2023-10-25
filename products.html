@@ -30,26 +30,25 @@
             <li class="nav-item">
               <a class="nav-link" href="sell.html">Vender</a>
             </li>
-            <div class="dropdown">
             <li class="nav-item">
-              <a class="nav-link" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-              <ul class="dropdown-menu" aria-labelledby="usuario">
-                <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart" style="margin-right:4.5px;"></i> Mi carrito</a></li>
-                <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user" style="margin-left:3px; margin-right:5px;"></i> Mi perfil</a></li>
+              <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuario">
+                <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart iconos"></i> Mi carrito</a></li>
+                <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user iconos"></i> Mi perfil</a></li>
                 
                 <!-- Modo oscuro -->
                 <li>
-                  <i class="fa fa-moon fa-lg" style="vertical-align: middle; margin-left:18px;"></i>
-                  <label class="switch" style="vertical-align: middle; margin-left:5px;">
-                   <input type="checkbox" id="btnDarkMode">
-                   <span class="slider round" style="width: 60px; height: 15px;"></span>
-                 </label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="btnDarkMode">
+                    <label class="form-check-label" for="btnDarkMode"><i class="fa fa-moon"></i></label>
+                  </div>
                </li>
   
-               <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key" style="margin-left:3px; margin-right:2px;"></i> Cerrar sesión</a></li>
+               <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key iconos"></i> Cerrar sesión</a></li>
               </ul>
+            </div>
             </li>
-          </div>
           </ul>
         </div>
       </div>
@@ -63,8 +62,8 @@
       <!-- Acá se agrega la sección de filtros-->
       <div class="container">
         <div class="row">
-          <div class="col text-end">
-            <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+          <div class="col d-flex justify-content-end">
+            <div class="btn-group btn-group-toggle mb-3" data-bs-toggle="buttons">
               <input type="radio" class="btn-check" name="options" id="sortByPriceAsc" checked>
               <label class="btn btn-light oscureable" for="sortByPriceAsc"><i class="fas fa-dollar-sign"></i> <i class="fas fa-sort-amount-up mr-1"></i></label>
               <input type="radio" class="btn-check" name="options" id="sortByPriceDesc" checked>
@@ -74,36 +73,25 @@
             </div>  
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12 offset-lg-0 col-md-12 mb-1 container">
-            <div class="row container p-0 m-0">
-              <div class="col-3">
-                <input type="search" id="buscador" class="form-control" placeholder="Buscar 🔍">
-              </div>
-              <div class="col offset-lg-4">
-                <p class="font-weight-normal text-end my-2"><i class="fas fa-dollar-sign"></i></p>
-              </div>
-              <div class="col-1">
+        <div class="row mb-4">
+          <div class="col-4">
+            <input type="search" id="buscador" class="form-control" placeholder="Buscar">
+          </div>
+          <div class="col-8">
+            <div class="input-group">  
                 <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
-              </div>
-              <div class="col-1">
                 <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
-              </div>
-              <div class="col p-0">
-                <div class="btn-group" role="group">
-                  <button class="btn btn-light btn-block oscureable" id="rangeFilterCount">Filtrar</button>
-                  <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
-                </div>
-              </div>
+                <button class="btn btn-light oscureable form-control" id="rangeFilterCount"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-light oscureable form-control" id="clearRangeFilter"><i class="fas fa-trash"></i></button>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="list-group" id="cat-list-container">
+      </div>
+        <div class="container">
+          <div class="list-group" id="categoria">
           </div>
         </div>
       </div>
-      <div id="categoria" class="container"></div>
     </main>
     <footer class="text-muted">
       <div class="container">

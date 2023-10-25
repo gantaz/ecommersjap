@@ -7,9 +7,9 @@
   <title>eMercado - Todo lo que busques está aquí</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/cart.css" rel="stylesheet">
 </head>
 
 <body>
@@ -30,36 +30,154 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <div class="dropdown">
           <li class="nav-item">
-            <a class="nav-link" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-            <ul class="dropdown-menu" aria-labelledby="usuario">
-              <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart" style="margin-right:4.5px;"></i> Mi carrito</a></li>
-              <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user" style="margin-left:3px; margin-right:5px;"></i> Mi perfil</a></li>
+            <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuario">
+              <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart iconos"></i> Mi carrito</a></li>
+              <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user iconos"></i> Mi perfil</a></li>
               
               <!-- Modo oscuro -->
               <li>
-                <i class="fa fa-moon fa-lg" style="vertical-align: middle; margin-left:18px;"></i>
-                <label class="switch" style="vertical-align: middle; margin-left:5px;">
-                 <input type="checkbox" id="btnDarkMode">
-                 <span class="slider round" style="width: 60px; height: 15px;"></span>
-               </label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="btnDarkMode">
+                  <label class="form-check-label" for="btnDarkMode"><i class="fa fa-moon"></i></label>
+                </div>
              </li>
 
-             <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key" style="margin-left:3px; margin-right:2px;"></i> Cerrar sesión</a></li>
+             <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key iconos"></i> Cerrar sesión</a></li>
             </ul>
+          </div>
           </li>
-        </div>
         </ul>
       </div>
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+   
+<div>
+  <div class="container">
+    <h2 class="text-center p-4">Mi carrito</h2>
+    <table class="table" id="carrito">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="productos">
+ 
+        </tbody>
+    </table>
+    
+    <button class="btn btn-success btn-lg mt-3" id="buy"><i class="fa fa-shopping-cart"></i> Comprar</button>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="dropdown">
+    <h5 class="h5 mt-4 mb-3"><i class="fa fa-shipping-fast"></i> Tipo de envío</h5>
+    <a class="btn btn-secondary dropdown-toggle mb-3" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Seleccionar
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+      <li><a id="premium" class="dropdown-item" href="#">Premium 2 a 5 días (15%)</a></li>
+      <li><a id="express" class="dropdown-item" href="#">Express 5 a 8 días (7%)</a></li>
+      <li><a id="standard" class="dropdown-item" href="#">Standard 12 a 15 días (5%)</a></li>
+    </ul>
+  </div>
+  <div class="row">
+    <h5 class="h5 mt-4 mb-3"><i class="fa fa-home"></i> Dirección</h5>
+<div class="col">
+  <label for="exampleFormControlInput1" class="form-label">Calle</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1">
+  <label for="exampleFormControlInput1" class="form-label">Esquina</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" >
+</div>
+<div class="col">
+  <label for="exampleFormControlInput1" class="form-label">Número</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" >
+</div>
+  </div>
+</div>
+
+<div class="container">
+  <h5 class="h5 mt-4 mb-3"><i class="fa fa-coins"></i> Costos</h5>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Subtotal<br><small>Costo unitario del producto por cantidad</small></td>
+        <td id="subtotalGeneral">0.00 USD</td>
+      </tr>
+      <tr>
+        <td>Costos de envío<br><small>Según el tipo de envío</small></td>
+        <td id="costoEnvio">0.00 USD</td>
+      </tr>
+      <tr>
+        <td>Total (S)</td>
+        <td id="totalPagar"><strong>0.00 USD</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <div class="container">
+    <h5 class="h5 mt-4 mb-3"><i class="fa fa-credit-card"></i> Forma de pago</h5>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal">
+      <a>Seleccionar</a>
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Forma de pago</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input class="form-check-input" type="radio" name="radio" id="cc" checked>
+            <label class="form-check-label mb-3" for="cc">
+              <i class="fa fa-credit-card"></i> <b>Tarjeta de crédito</b>
+            </label>
+            <form class="row g-3">
+              <div class="col-12">
+                <label for="ccnum" class="form-label">Número de tarjeta</label>
+                <input type="number" class="form-control" id="ccnum" min="1000000000000000" >
+              </div>
+              <div class="col-md-6">
+                <label for="ccexp" class="form-label">Vencimiento</label>
+                <input type="text" class="form-control" id="ccexp" placeholder="MM/AA">
+              </div>
+              <div class="col-md-6">
+                <label for="cvc" class="form-label">CVC</label>
+                <input type="number" class="form-control" id="cvc" min="100" >
+              </div>
+            </form>
+            <hr>
+            <input class="form-check-input" type="radio" name="radio" id="transf1">
+            <label class="form-check-label mb-3" for="transf1">
+              <i class="fa fa-piggy-bank"></i> <b>Transferencia bancaria</b>
+            </label>
+            <div class="col">
+              <label for="cuenta" class="form-label">Número de cuenta</label>
+              <input type="number" class="form-control" id="cuenta" min="999999" >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a>Cancelar</a></button>
+            <button type="button" class="btn btn-primary"><a>Aceptar</a></button>
+          </div>
+        </div>
       </div>
     </div>
+
+  </div>
+
   </main>
   <footer class="text-muted">
     <div class="container">
@@ -77,6 +195,8 @@
       <div></div>
     </div>
   </div>
+
+
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
