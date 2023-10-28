@@ -104,7 +104,7 @@ fetch(carrito)
 
     // Crear contenido HTML para mostrar el producto en la página
     const htmlContentToAppend = ` 
-    <tr>
+    <tr class="producto" id="filaProducto${productIndex}">
       <td><img src=${foto} class="img-thumbnail">${name}</td>
       <td class="centrar">${precio} ${product.currency}</td>
       <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
@@ -142,7 +142,7 @@ function carritoLocal() {
       const productIndex = productos.length;
 
       const htmlContentToAppend = `
-    <tr>
+    <tr class="producto" id="filaProducto${productIndex}">
     <td><img src=${foto} class="img-thumbnail">${name}</td>
     <td class="centrar">${precio} ${product.currency}</td>
     <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
