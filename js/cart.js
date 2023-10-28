@@ -67,7 +67,7 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
     dropdown.setAttribute('data-selected-option-id', selectedOptionId);
 
     // Calcular el porcentaje basado en el tipo de envío seleccionado
-    let porcentaje = 0;
+    var porcentaje = 0;
     switch (selectedOptionId) {
       case 'premium':
         porcentaje = 15;
@@ -80,6 +80,16 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
         break;
       default:
         porcentaje = 0;
+    }
+
+    if (porcentaje == 15) {
+      metodoDeEnvio.innerHTML = "Premium 2 a 5 días (15%)";
+    } else if(porcentaje == 7){
+      metodoDeEnvio.innerHTML = "Express 5 a 8 días (7%)";
+    } else if(porcentaje == 5) {
+      metodoDeEnvio.innerHTML = "Standard 12 a 15 días (5%)";
+    } else {
+      metodoDeEnvio.innerHTML = "Selecciona un tipo de envío";
     }
 
     // Llamar a la función para calcular el costo de envío y actualizar el total a pagar
@@ -208,7 +218,7 @@ finalizar.addEventListener("click", () => {
   });
   
 
-  // Botón eliminar
+// Botón eliminar
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("eliminar-producto")) {
     const productIndex = event.target.getAttribute("data-product-index");
