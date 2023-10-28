@@ -17,22 +17,30 @@ function updateSubtotal(productIndex) {
     // Precio oscila entre .cost y .unitCost porque la API y el local tienen unidades distintas
     const precio = productos[productIndex].cost || productos[productIndex].unitCost;
 
-    // Valor de cantidad ingresada por el usuario
-    const cantidad = parseInt(cantidadInput.value);
+    // Valor de cantidad ingresada por el usuario (nuevo valor)
+    const nuevaCantidad = parseInt(cantidadInput.value);
+
+    // Valor de cantidad anterior (puedes almacenar el valor anterior en un atributo data o en una variable)
+    const cantidadAnterior = parseInt(cantidadInput.getAttribute("data-cantidad-anterior")) || 0;
+
+    // Diferencia entre la nueva cantidad y la cantidad anterior
+    const cambioEnCantidad = nuevaCantidad - cantidadAnterior;
 
     // Cálculo del subtotal
-    const subtotal = precio * cantidad;
+    const subtotal = precio * nuevaCantidad;
 
     // Mostrar el subtotal del producto
     subtotalElement.textContent = `${subtotal} ${productos[productIndex].currency}`;
 
-    // Actualizar el subtotal general sumando el subtotal del producto
-    subtotalGeneral += subtotal;
+    // Actualizar el subtotal general considerando el cambio en cantidad
+    subtotalGeneral += cambioEnCantidad * precio;
 
     // Mostrar el subtotal general
     const subtotalGeneralElement = document.getElementById('subtotalGeneral');
-    subtotalGeneralElement.textContent = `${subtotalGeneral} ${productos[productIndex].currency}`;
+    subtotalGeneralElement.textContent = `${subtotalGeneral.toFixed(2)} ${productos[productIndex].currency}`;
 
+    // Actualizar el valor anterior de la cantidad
+    cantidadInput.setAttribute("data-cantidad-anterior", nuevaCantidad);
   }
 }
 
@@ -96,12 +104,12 @@ fetch(carrito)
 
     // Crear contenido HTML para mostrar el producto en la página
     const htmlContentToAppend = ` 
-    <tr class="producto" id="filaProducto${productIndex}">
+    <tr>
       <td><img src=${foto} class="img-thumbnail">${name}</td>
       <td class="centrar">${precio} ${product.currency}</td>
       <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
       <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
-      <td class="centrar"><button class="eliminar-producto" data-product-index="${productIndex}"> <i class="fa fa-trash"></i> </button></td>
+      <td class="centrar"><button class="btn btn-danger eliminar-producto" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
     </tr>
  `;
 
@@ -134,12 +142,12 @@ function carritoLocal() {
       const productIndex = productos.length;
 
       const htmlContentToAppend = `
-    <tr class="producto" id="filaProducto${productIndex}">
+    <tr>
     <td><img src=${foto} class="img-thumbnail">${name}</td>
     <td class="centrar">${precio} ${product.currency}</td>
     <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
     <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
-    <td class="centrar"><button class="eliminar-producto" data-product-index="${productIndex}"> <i class="fa fa-trash"></i> </button></td>
+    <td class="centrar"><button class="btn btn-danger eliminar-producto" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
   </tr>
 `;
 
@@ -147,7 +155,7 @@ function carritoLocal() {
       //pushea el producto al array
       productos.push(product);
 
-      // llama a la funcion para calcular y mostrar el subtotal
+      // llama a la funcion para calcular y mostrar el subtotalf
       updateSubtotal(productIndex);
     });
   }
@@ -165,9 +173,42 @@ document.addEventListener("input", function (event) {
   }
 });
 
+//Funcionalidad para desactivar forma de pago
+let fop1 = document.getElementById("inputcc");
+let fop2 = document.getElementById("inputtransf");
+let radio1 = document.getElementById("radiocc");
+let radio2 = document.getElementById("radiotransf");
+
+radio1.addEventListener("click", () => {
+  fop1.removeAttribute('disabled', '');
+  fop2.setAttribute('disabled', '');
+});
 
 
-// Botón eliminar
+radio2.addEventListener("click", () => {
+  fop2.removeAttribute('disabled', '');
+  fop1.setAttribute('disabled', '');
+}); 
+
+let finalizar = document.getElementById("finalizar");
+
+function myValidations() {
+  let validity = false;
+}
+
+finalizar.addEventListener("click", () => {
+     if (!myValidations()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+ 
+    document.body.classList.add("was-validated");
+//    ["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+  });
+  
+
+  // Botón eliminar
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("eliminar-producto")) {
     const productIndex = event.target.getAttribute("data-product-index");

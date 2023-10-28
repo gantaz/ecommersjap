@@ -58,22 +58,20 @@
 <div>
   <div class="container">
     <h2 class="text-center p-4">Mi carrito</h2>
-    <table class="table" id="carrito">
-        <thead class="text-center">
-            <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Costo</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Subtotal</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
+    <table class="table table-hover table-responsive" id="carrito">
+      <thead class="text-center">
+        <tr>
+            <th scope="col" class="centrar">Producto</th>
+            <th scope="col" class="centrar">Costo</th>
+            <th scope="col" class="centrar">Cantidad</th>
+            <th scope="col" class="centrar">Subtotal</th>
+            <th scope="col" class="centrar"></th>
+        </tr>
+    </thead>
         <tbody id="productos">
  
         </tbody>
-    </table>
-    
-    <button class="btn btn-success btn-lg mt-3" id="buy"><i class="fa fa-shopping-cart"></i> Comprar</button>
+    </table>   
   </div>
 </div>
 <br>
@@ -89,24 +87,24 @@
       <li><a id="standard" class="dropdown-item" href="#">Standard 12 a 15 días (5%)</a></li>
     </ul>
   </div>
-  <div class="row">
+  <form class="row" id="dire" novalidate>
     <h5 class="h5 mt-4 mb-3"><i class="fa fa-home"></i> Dirección</h5>
-<div class="col">
-  <label for="exampleFormControlInput1" class="form-label">Calle</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1">
-  <label for="exampleFormControlInput1" class="form-label">Esquina</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" >
-</div>
-<div class="col">
-  <label for="exampleFormControlInput1" class="form-label">Número</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" >
-</div>
-  </div>
+    <div class="col">
+      <label for="calle" class="form-label">Calle</label>
+      <input type="text" class="form-control" id="calle" required>
+      <label for="esq" class="form-label">Esquina</label>
+      <input type="text" class="form-control" id="esq" required>
+    </div>
+    <div class="col">
+      <label for="nbr" class="form-label">Número</label>
+      <input type="number" class="form-control" id="nbr" required>
+    </div>
+  </form>
 </div>
 
 <div class="container">
   <h5 class="h5 mt-4 mb-3"><i class="fa fa-coins"></i> Costos</h5>
-  <table class="table">
+  <table class="table table-responsive">
     <tbody>
       <tr>
         <td>Subtotal<br><small>Costo unitario del producto por cantidad</small></td>
@@ -140,33 +138,37 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input class="form-check-input" type="radio" name="radio" id="cc" checked>
-            <label class="form-check-label mb-3" for="cc">
+            <input class="form-check-input" type="radio" name="radio" id="radiocc" checked novalidae>
+            <label class="mb-3" for="radiocc">
               <i class="fa fa-credit-card"></i> <b>Tarjeta de crédito</b>
             </label>
-            <form class="row g-3">
-              <div class="col-12">
-                <label for="ccnum" class="form-label">Número de tarjeta</label>
-                <input type="number" class="form-control" id="ccnum" min="1000000000000000" >
-              </div>
-              <div class="col-md-6">
-                <label for="ccexp" class="form-label">Vencimiento</label>
-                <input type="text" class="form-control" id="ccexp" placeholder="MM/AA">
-              </div>
-              <div class="col-md-6">
-                <label for="cvc" class="form-label">CVC</label>
-                <input type="number" class="form-control" id="cvc" min="100" >
-              </div>
-            </form>
+            <fieldset id="inputcc">
+              <form class="row g-3" novalidate>
+                <div class="col-12">
+                  <label for="ccnum" class="form-label">Número de tarjeta</label>
+                  <input type="number" class="form-control" id="ccnum" min="1000000000000000" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="ccexp" class="form-label">Vencimiento</label>
+                  <input type="text" class="form-control" id="ccexp" placeholder="MM/AA" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="cvc" class="form-label">CVC</label>
+                  <input type="number" class="form-control" id="cvc" min="100" required>
+                </div>
+              </form>
+            </fieldset>
             <hr>
-            <input class="form-check-input" type="radio" name="radio" id="transf1">
-            <label class="form-check-label mb-3" for="transf1">
+            <input class="form-check-input" type="radio" name="radio" id="radiotransf" novalidate>
+            <label class="mb-3" for="radiotransf">
               <i class="fa fa-piggy-bank"></i> <b>Transferencia bancaria</b>
             </label>
-            <div class="col">
-              <label for="cuenta" class="form-label">Número de cuenta</label>
-              <input type="number" class="form-control" id="cuenta" min="999999" >
-            </div>
+            <fieldset id="inputtransf" disabled>
+              <div class="col">
+                <label for="cuenta" class="form-label">Número de cuenta</label>
+                <input type="number" class="form-control" id="cuenta" min="999999" required>
+              </div>
+            </fieldset>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a>Cancelar</a></button>
@@ -175,7 +177,10 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="container text-center">
+    <button class="btn btn-success btn-lg mt-3" id="finalizar"><i class="fa fa-shopping-cart"></i> Finalizar compra</button>
   </div>
 
   </main>
