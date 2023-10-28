@@ -178,4 +178,22 @@ radio1.addEventListener("click", () => {
 radio2.addEventListener("click", () => {
   fop2.removeAttribute('disabled', '');
   fop1.setAttribute('disabled', '');
-});
+}); 
+
+let finalizar = document.getElementById("finalizar");
+
+function myValidations() {
+  let validity = false;
+}
+
+finalizar.addEventListener("click", () => {
+     if (!myValidations()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+ 
+    document.body.classList.add("was-validated");
+//    ["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+  });
+  
