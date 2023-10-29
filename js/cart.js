@@ -17,22 +17,30 @@ function updateSubtotal(productIndex) {
     // Precio oscila entre .cost y .unitCost porque la API y el local tienen unidades distintas
     const precio = productos[productIndex].cost || productos[productIndex].unitCost;
 
-    // Valor de cantidad ingresada por el usuario
-    const cantidad = parseInt(cantidadInput.value);
+    // Valor de cantidad ingresada por el usuario (nuevo valor)
+    const nuevaCantidad = parseInt(cantidadInput.value);
+
+    // Valor de cantidad anterior (puedes almacenar el valor anterior en un atributo data o en una variable)
+    const cantidadAnterior = parseInt(cantidadInput.getAttribute("data-cantidad-anterior")) || 0;
+
+    // Diferencia entre la nueva cantidad y la cantidad anterior
+    const cambioEnCantidad = nuevaCantidad - cantidadAnterior;
 
     // Cálculo del subtotal
-    const subtotal = precio * cantidad;
+    const subtotal = precio * nuevaCantidad;
 
     // Mostrar el subtotal del producto
     subtotalElement.textContent = `${subtotal} ${productos[productIndex].currency}`;
 
-    // Actualizar el subtotal general sumando el subtotal del producto
-    subtotalGeneral += subtotal;
+    // Actualizar el subtotal general considerando el cambio en cantidad
+    subtotalGeneral += cambioEnCantidad * precio;
 
     // Mostrar el subtotal general
     const subtotalGeneralElement = document.getElementById('subtotalGeneral');
-    subtotalGeneralElement.textContent = `${subtotalGeneral} ${productos[productIndex].currency}`;
+    subtotalGeneralElement.textContent = `${subtotalGeneral.toFixed(2)} ${productos[productIndex].currency}`;
 
+    // Actualizar el valor anterior de la cantidad
+    cantidadInput.setAttribute("data-cantidad-anterior", nuevaCantidad);
   }
 }
 
@@ -48,18 +56,15 @@ function calcularCostoEnvio(porcentaje) {
   const totalPagar = subtotal + costoEnvio; // Calcular el total a pagar
 
   const totalPagarElement = document.getElementById('totalPagar');
-  totalPagarElement.innerHTML = `<strong>$${totalPagar.toFixed(2)} USD</strong>`; // Mostrar el total a pagar
+  totalPagarElement.innerHTML = `<strong>${totalPagar.toFixed(2)} USD</strong>`; // Mostrar el total a pagar
 }
 
 // Evento que se activa al hacer clic en una opción del desplegable
-document.querySelectorAll('.dropdown-item').forEach(item => {
+document.querySelectorAll('#envio input[type="radio"]').forEach(item => {
   item.addEventListener('click', (event) => {
     const selectedOptionId = event.target.id;
-    const dropdown = document.getElementById('dropdownMenuLink');
-    dropdown.setAttribute('data-selected-option-id', selectedOptionId);
-
     // Calcular el porcentaje basado en el tipo de envío seleccionado
-    let porcentaje = 0;
+    var porcentaje = 0;
     switch (selectedOptionId) {
       case 'premium':
         porcentaje = 15;
@@ -73,7 +78,6 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
       default:
         porcentaje = 0;
     }
-
     // Llamar a la función para calcular el costo de envío y actualizar el total a pagar
     calcularCostoEnvio(porcentaje);
   });
@@ -96,11 +100,12 @@ fetch(carrito)
 
     // Crear contenido HTML para mostrar el producto en la página
     const htmlContentToAppend = ` 
-    <tr>
+    <tr class="producto" id="filaProducto${productIndex}">
       <td><img src=${foto} class="img-thumbnail">${name}</td>
       <td class="centrar">${precio} ${product.currency}</td>
       <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
       <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
+      <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
     </tr>
  `;
 
@@ -133,11 +138,12 @@ function carritoLocal() {
       const productIndex = productos.length;
 
       const htmlContentToAppend = `
-    <tr>
+    <tr class="producto" id="filaProducto${productIndex}">
     <td><img src=${foto} class="img-thumbnail">${name}</td>
     <td class="centrar">${precio} ${product.currency}</td>
     <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
     <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
+    <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
   </tr>
 `;
 
@@ -162,3 +168,127 @@ document.addEventListener("input", function (event) {
     updateSubtotal(productIndex);
   }
 });
+
+//Funcionalidad para validar
+let fop1 = document.getElementById("inputcc");
+let fop2 = document.getElementById("inputtransf");
+let radio1 = document.getElementById("radiocc");
+let radio2 = document.getElementById("radiotransf");
+let ccnum = document.getElementById("ccnum");
+let ccexp = document.getElementById("ccexp");
+let cvc = document.getElementById("cvc");
+let cuenta = document.getElementById("cuenta");
+let calle = document.getElementById("calle");
+let esq = document.getElementById("esq");
+let nbr = document.getElementById("nbr");
+let pr = document.getElementById("premium");
+let ex = document.getElementById("express");
+let st = document.getElementById("standard");
+
+radio1.addEventListener("click", () => {
+  cuenta.value = '';
+  fop1.removeAttribute('disabled', '');
+  fop2.setAttribute('disabled', '');
+});
+
+radio2.addEventListener("click", () => {
+  ccnum.value = '';
+  ccexp.value = '';
+  cvc.value = '';
+  fop2.removeAttribute('disabled', '');
+  fop1.setAttribute('disabled', '');
+}); 
+
+//Alerta éxito
+function showSuccessAlert() {
+  const successAlert = document.getElementById("success-alert");
+  successAlert.classList.remove("d-none"); 
+  
+  setTimeout(function() {
+    successAlert.classList.add("d-none"); 
+  }, 3000);
+}
+
+// Validaciones personalizadas
+function myValidations() {
+  let validity = false;
+  if (((ccnum.value.length || ccexp.value.length || cvc.value.length) || cuenta.value.length) === 0) {
+    validity = false;
+    document.getElementById('feedback-fop').classList.add("d-block"); 
+    console.log("Forma de pago invalida");
+  }
+  if ((calle.value.length || esq.value.length || nbr.value.length) === 0) {
+    validity = false;
+    console.log("Falta direccion de envio");
+  };
+  if (!(pr.checked || ex.checked || st.checked)) {
+    validity = false;
+    console.log("Falta tipo de envio");
+  }
+  else {
+    validity = true;
+    showSuccessAlert();
+    return validity;
+  }
+}
+
+// Validar al comprar
+let finalizar = document.getElementById("finalizar");
+
+finalizar.addEventListener("click", () => {
+     if (!myValidations()) {
+      event.preventDefault();
+      event.stopPropagation();
+    } 
+    document.body.classList.add("was-validated");
+    //["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+    myValidations();
+  });
+
+// Validar datos de pago al guardar
+let guardarFop = document.getElementById("guardar-fop");
+guardarFop.addEventListener("click", function () {
+  document.getElementById('feedback-fop').classList.remove("d-block"); 
+});
+
+// Botón eliminar
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("eliminar-producto")) {
+    const productIndex = event.target.getAttribute("data-product-index");
+    if (productIndex !== null) {
+      // Eliminar el producto del carrito local
+      removerDeLocal(productIndex);
+
+      // Eliminar el producto de la lista en la página
+      removerDeCarrito(productIndex);
+    }
+  }
+});
+
+// Función para eliminar un producto del carrito local
+function removerDeLocal(productIndex) {
+  let products = JSON.parse(localStorage.getItem("carrito"));
+  if (products) {
+    products.splice(productIndex, 1); // Eliminar el producto del array local
+    localStorage.setItem("carrito", JSON.stringify(products)); // Actualizar el carrito local
+  }
+}
+
+// Función para eliminar un producto de la lista en la página
+function removerDeCarrito(productIndex) {
+  const filaProducto = document.getElementById(`filaProducto${productIndex}`);
+  if (filaProducto) {
+    filaProducto.remove(); // Eliminar el elemento HTML del producto de la lista en la página
+
+    // Eliminar el producto del array 'productos'
+    const product = productos[productIndex];
+    productos.splice(productIndex, 1);
+
+    // Actualizar el subtotal general
+    subtotalGeneral -= product.cost || product.unitCost;
+
+    // Mostrar el subtotal general actualizado
+    const subtotalGeneralElement = document.getElementById('subtotalGeneral');
+    subtotalGeneralElement.textContent = `${subtotalGeneral.toFixed(2)} USD`;
+  }
+}
