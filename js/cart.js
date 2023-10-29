@@ -213,17 +213,17 @@ function showSuccessAlert() {
 function myValidations() {
   let validity = false;
   if (((ccnum.value.length || ccexp.value.length || cvc.value.length) || cuenta.value.length) === 0) {
+    validity = false;
     document.getElementById('feedback-fop').classList.add("d-block"); 
-
-    console.log("foppp");
+    console.log("Forma de pago invalida");
   }
   if ((calle.value.length || esq.value.length || nbr.value.length) === 0) {
     validity = false;
-    console.log("falta dire envio");
+    console.log("Falta direccion de envio");
   };
   if (!(pr.checked || ex.checked || st.checked)) {
     validity = false;
-    console.log("falta envio");
+    console.log("Falta tipo de envio");
   }
   else {
     validity = true;
