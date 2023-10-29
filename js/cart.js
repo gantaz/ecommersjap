@@ -81,7 +81,7 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
       default:
         porcentaje = 0;
     }
-
+    var metodoDeEnvio = document.getElementById("metodoDeEnvio");
     if (porcentaje == 15) {
       metodoDeEnvio.innerHTML = "Premium 2 a 5 días (15%)";
     } else if(porcentaje == 7){
@@ -119,7 +119,7 @@ fetch(carrito)
       <td class="centrar">${precio} ${product.currency}</td>
       <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
       <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
-      <td class="centrar"><button class="btn btn-danger eliminar-producto" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
+      <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
     </tr>
  `;
 
@@ -157,7 +157,7 @@ function carritoLocal() {
     <td class="centrar">${precio} ${product.currency}</td>
     <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
     <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
-    <td class="centrar"><button class="btn btn-danger eliminar-producto" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
+    <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
   </tr>
 `;
 
