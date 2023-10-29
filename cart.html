@@ -78,19 +78,21 @@
 </div>
 <br>
 <div class="container">
-  <div class="dropdown">
+  <div id="envio">
     <h5 class="h5 mt-0 mb-3"><i class="fa fa-shipping-fast"></i> Tipo de envío</h5>
-    <a class="btn btn-secondary dropdown-toggle mb-3" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-      Seleccionar
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-      <li><a id="premium" class="dropdown-item" href="#">Premium 2 a 5 días (15%)</a></li>
-      <li><a id="express" class="dropdown-item" href="#">Express 5 a 8 días (7%)</a></li>
-      <li><a id="standard" class="dropdown-item" href="#">Standard 12 a 15 días (5%)</a></li>
-    </ul>
-    <div id="metodoDeEnvio">
-      <i>Selecciona un tipo de envío</i>
+    <div class="form-check">
+        <input type="radio" name="tipoEnvio" id="premium" value="premium" class="form-check-input">
+        <label for="premium" class="form-check-label">Premium 2 a 5 días (15%)</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="tipoEnvio" id="express" value="express" class="form-check-input">
+        <label for="express" class="form-check-label">Express 5 a 8 días (7%)</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="tipoEnvio" id="standard" value="standard" class="form-check-input" required>
+        <label for="standard" class="form-check-label">Standard 12 a 15 días (5%)</label>
     </div>
+    <div id="feedback-envio"></div>
   </div>
   <form class="row" id="dire" novalidate>
     <h5 class="h5 mt-4 mb-3"><i class="fa fa-home"></i> Dirección</h5>
@@ -131,8 +133,9 @@
     <h5 class="h5 mt-4 mb-3"><i class="fa fa-credit-card"></i> Forma de pago</h5>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal">
-      <a>Seleccionar</a>
+      Seleccionar
     </button>
+    <div id="feedback-fop"></div>
     
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -176,8 +179,8 @@
             </fieldset>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a>Cancelar</a></button>
-            <button type="button" class="btn btn-primary"><a>Aceptar</a></button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="aceptar-fop">Aceptar</button>
           </div>
         </div>
       </div>

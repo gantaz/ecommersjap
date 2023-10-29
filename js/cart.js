@@ -60,12 +60,9 @@ function calcularCostoEnvio(porcentaje) {
 }
 
 // Evento que se activa al hacer clic en una opción del desplegable
-document.querySelectorAll('.dropdown-item').forEach(item => {
+document.querySelectorAll('#envio input[type="radio"]').forEach(item => {
   item.addEventListener('click', (event) => {
     const selectedOptionId = event.target.id;
-    const dropdown = document.getElementById('dropdownMenuLink');
-    dropdown.setAttribute('data-selected-option-id', selectedOptionId);
-
     // Calcular el porcentaje basado en el tipo de envío seleccionado
     var porcentaje = 0;
     switch (selectedOptionId) {
@@ -81,17 +78,6 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
       default:
         porcentaje = 0;
     }
-    var metodoDeEnvio = document.getElementById("metodoDeEnvio");
-    if (porcentaje == 15) {
-      metodoDeEnvio.innerHTML = "Premium 2 a 5 días (15%)";
-    } else if(porcentaje == 7){
-      metodoDeEnvio.innerHTML = "Express 5 a 8 días (7%)";
-    } else if(porcentaje == 5) {
-      metodoDeEnvio.innerHTML = "Standard 12 a 15 días (5%)";
-    } else {
-      metodoDeEnvio.innerHTML = "Selecciona un tipo de envío";
-    }
-
     // Llamar a la función para calcular el costo de envío y actualizar el total a pagar
     calcularCostoEnvio(porcentaje);
   });
@@ -204,6 +190,11 @@ let finalizar = document.getElementById("finalizar");
 
 function myValidations() {
   let validity = false;
+  if (!document.getElementById('ccnum').value || !document.getElementById('cuenta').value) {
+    document.getElementById('feedback-fop').innerHTML = "Debes elegir la forma de pago.";
+  } else {
+    validity = true;
+  }
 }
 
 finalizar.addEventListener("click", () => {
@@ -212,9 +203,8 @@ finalizar.addEventListener("click", () => {
       event.stopPropagation();
     }
 
- 
     document.body.classList.add("was-validated");
-//    ["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+    ["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
   });
   
 
