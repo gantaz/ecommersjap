@@ -56,7 +56,7 @@ function calcularCostoEnvio(porcentaje) {
   const totalPagar = subtotal + costoEnvio; // Calcular el total a pagar
 
   const totalPagarElement = document.getElementById('totalPagar');
-  totalPagarElement.innerHTML = `<strong>$${totalPagar.toFixed(2)} USD</strong>`; // Mostrar el total a pagar
+  totalPagarElement.innerHTML = `<strong>${totalPagar.toFixed(2)} USD</strong>`; // Mostrar el total a pagar
 }
 
 // Evento que se activa al hacer clic en una opción del desplegable
@@ -169,44 +169,87 @@ document.addEventListener("input", function (event) {
   }
 });
 
-//Funcionalidad para desactivar forma de pago
+//Funcionalidad para validar
 let fop1 = document.getElementById("inputcc");
 let fop2 = document.getElementById("inputtransf");
 let radio1 = document.getElementById("radiocc");
 let radio2 = document.getElementById("radiotransf");
+let ccnum = document.getElementById("ccnum");
+let ccexp = document.getElementById("ccexp");
+let cvc = document.getElementById("cvc");
+let cuenta = document.getElementById("cuenta");
+let calle = document.getElementById("calle");
+let esq = document.getElementById("esq");
+let nbr = document.getElementById("nbr");
+let pr = document.getElementById("premium");
+let ex = document.getElementById("express");
+let st = document.getElementById("standard");
 
 radio1.addEventListener("click", () => {
+  cuenta.value = '';
   fop1.removeAttribute('disabled', '');
   fop2.setAttribute('disabled', '');
 });
 
-
 radio2.addEventListener("click", () => {
+  ccnum.value = '';
+  ccexp.value = '';
+  cvc.value = '';
   fop2.removeAttribute('disabled', '');
   fop1.setAttribute('disabled', '');
 }); 
 
-let finalizar = document.getElementById("finalizar");
+//Alerta éxito
+function showSuccessAlert() {
+  const successAlert = document.getElementById("success-alert");
+  successAlert.classList.remove("d-none"); 
+  
+  setTimeout(function() {
+    successAlert.classList.add("d-none"); 
+  }, 3000);
+}
 
+// Validaciones personalizadas
 function myValidations() {
   let validity = false;
-  if (!document.getElementById('ccnum').value || !document.getElementById('cuenta').value) {
-    document.getElementById('feedback-fop').innerHTML = "Debes elegir la forma de pago.";
-  } else {
+  if (((ccnum.value.length || ccexp.value.length || cvc.value.length) || cuenta.value.length) === 0) {
+    document.getElementById('feedback-fop').classList.add("d-block"); 
+
+    console.log("foppp");
+  }
+  if ((calle.value.length || esq.value.length || nbr.value.length) === 0) {
+    validity = false;
+    console.log("falta dire envio");
+  };
+  if (!(pr.checked || ex.checked || st.checked)) {
+    validity = false;
+    console.log("falta envio");
+  }
+  else {
     validity = true;
+    showSuccessAlert();
+    return validity;
   }
 }
+
+// Validar al comprar
+let finalizar = document.getElementById("finalizar");
 
 finalizar.addEventListener("click", () => {
      if (!myValidations()) {
       event.preventDefault();
       event.stopPropagation();
-    }
-
+    } 
     document.body.classList.add("was-validated");
-    ["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+    //["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+    myValidations();
   });
-  
+
+// Validar datos de pago al guardar
+let guardarFop = document.getElementById("guardar-fop");
+guardarFop.addEventListener("click", function () {
+  document.getElementById('feedback-fop').classList.remove("d-block"); 
+});
 
 // Botón eliminar
 document.addEventListener("click", function (event) {
