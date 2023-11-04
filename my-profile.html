@@ -25,6 +25,10 @@
         font-size: 3.5rem;
       }
     }
+    #foto-de-perfil{
+      width: 100px;
+      height: 100px;
+    }
   </style>
 </head>
 
@@ -70,11 +74,58 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="container m-lg-100">
+        <div class="row">
+          <div class="col col-8 col-md-10">
+            <h2 class="text-left pt-4 pb-4">Mi perfil</h2>
+          </div>
+          <div class="col col-4 col-md-2 pt-4">
+            <img id="foto-de-perfil" class="img-thumbnail" src="img/user.svg">
+          </div>
+        </div>
+        <hr>
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="primer-nombre">Primer nombre</label>
+                <input type="text" class="form-control" id="primer-nombre" name="primer-nombre" placeholder="Gabriela">
+              </div>
+              <div class="mb-3">
+                <label for="primer-apellido">Primer apellido</label>
+                <input type="text" class="form-control" id="primer-apellido" name="primer-apellido" placeholder="Diaz">
+              </div>
+              <div class="mb-3">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@mail.com">
+              </div>
+              <div class="mb-3">
+                <label for="telefono-de-contacto">Teléfono de contacto</label>
+                <input type="text" class="form-control" id="telefono-de-contacto" name="telefono-de-contacto" placeholder="09000000">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="segundo-nombre">Segundo nombre</label>
+                <input type="text" class="form-control" id="segundo-nombre" name="segundo-nombre" placeholder="Fernanda">
+              </div>
+              <div class="mb-3">
+                <label for="segundo-apellido">Segundo apellido</label>
+                <input type="text" class="form-control" id="segundo-apellido" name="segundo-apellido" placeholder="Fagundez">
+              </div>
+              <div class="mb-3">
+                <form>
+                  <label for="img">Imagen de perfil</label>
+                  <input class="form-control" type="file" id="img" name="img" accept="image/*">
+                </form>
+              </div>
+              <input type="hidden" name="telefono-de-contacto-original" value="09000000">
+            </div>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </form>
       </div>
-    </div>
   </main>
   <footer class="text-muted">
     <div class="container">

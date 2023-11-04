@@ -65,11 +65,11 @@
           <div class="col d-flex justify-content-end">
             <div class="btn-group btn-group-toggle mb-3" data-bs-toggle="buttons">
               <input type="radio" class="btn-check" name="options" id="sortByPriceAsc" checked>
-              <label class="btn btn-light oscureable" for="sortByPriceAsc"><i class="fas fa-dollar-sign"></i> <i class="fas fa-sort-amount-up mr-1"></i></label>
+              <label class="btn btn-secondary" for="sortByPriceAsc"><i class="fas fa-dollar-sign"></i> <i class="fas fa-sort-amount-up mr-1"></i></label>
               <input type="radio" class="btn-check" name="options" id="sortByPriceDesc" checked>
-              <label class="btn btn-light oscureable" for="sortByPriceDesc"><i class="fas fa-dollar-sign"></i> <i class="fas fa-sort-amount-down mr-1"></i></label>
+              <label class="btn btn-secondary" for="sortByPriceDesc"><i class="fas fa-dollar-sign"></i> <i class="fas fa-sort-amount-down mr-1"></i></label>
               <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
-              <label class="btn btn-light oscureable" for="sortByCount"><i class="fas fa-star"></i> <i class="fas fa-sort-amount-down mr-1"></i></label>
+              <label class="btn btn-secondary" for="sortByCount"><i class="fas fa-star"></i> <i class="fas fa-sort-amount-down mr-1"></i></label>
             </div>  
           </div>
         </div>
@@ -77,13 +77,15 @@
           <div class="col-4">
             <input type="search" id="buscador" class="form-control" placeholder="Buscar">
           </div>
-          <div class="col-8">
+          <div class="col-1 col-lg-4">
+          </div>
+          <div class="col-7 col-lg-4">
             <div class="input-group">  
                 <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
                 <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
-                <button class="btn btn-light oscureable form-control" id="rangeFilterCount"><i class="fas fa-filter"></i></button>
-                <button class="btn btn-light oscureable form-control" id="clearRangeFilter"><i class="fas fa-trash"></i></button>
-            </div>
+                <button class="btn btn-secondary" id="rangeFilterCount"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-secondary" id="clearRangeFilter"><i class="fas fa-trash"></i></button>
+              </div>
           </div>
         </div>
       </div>
