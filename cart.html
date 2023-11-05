@@ -7,6 +7,7 @@
   <title>eMercado - Todo lo que busques está aquí</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/cart.css" rel="stylesheet">
@@ -32,197 +33,220 @@
           </li>
           <li class="nav-item">
             <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" id="usuario" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuario">
-              <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart iconos"></i> Mi carrito</a></li>
-              <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user iconos"></i> Mi perfil</a></li>
-              
-              <!-- Modo oscuro -->
-              <li>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="btnDarkMode">
-                  <label class="form-check-label" for="btnDarkMode"><i class="fa fa-moon"></i></label>
-                </div>
-             </li>
+              <a class="btn btn-secondary dropdown-toggle" id="usuario" href="#" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false"></a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuario">
+                <li><a class="dropdown-item" href="cart.html"><i class="fa fa-shopping-cart iconos"></i> Mi carrito</a>
+                </li>
+                <li><a class="dropdown-item" href="my-profile.html"><i class="fa fa-user iconos"></i> Mi perfil</a></li>
 
-             <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key iconos"></i> Cerrar sesión</a></li>
-            </ul>
-          </div>
+                <!-- Modo oscuro -->
+                <li>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="btnDarkMode">
+                    <label class="form-check-label" for="btnDarkMode"><i class="fa fa-moon"></i></label>
+                  </div>
+                </li>
+
+                <li><a class="dropdown-item" id="cerrarsesion" href="#"><i class="fa fa-key iconos"></i> Cerrar
+                    sesión</a></li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <main class=" oscureable">
-   
-<div>
-  <div class="container">
-    <h2 class="text-center p-4">Mi carrito</h2>
-    <div class="table-responsive overflow-hidden oscureable">
-      <table class="table oscureable" id="carrito">
-        <thead class="text-center">
-          <tr>
-            <th scope="col" class="centrar">Producto</th>
-            <th scope="col" class="centrar">Costo</th>
-            <th scope="col" class="centrar">Cantidad</th>
-            <th scope="col" class="centrar">Subtotal</th>
-            <th scope="col" class="centrar"></th>
-          </tr>
-        </thead>
-        <tbody id="productos">
- 
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<br>
-<div class="container">
-  <div id="envio">
-    <h5 class="h5 mt-0 mb-3"><i class="fa fa-shipping-fast"></i> Tipo de envío</h5>
-    <div class="form-check">
-        <input type="radio" name="tipoEnvio" id="premium" value="premium" class="form-check-input">
-        <label for="premium" class="form-check-label">Premium 2 a 5 días (15%)</label>
+  <main class="justify-content-md-center">
+    <div class="container" id="cart">
+      <h2 class="text-center p-4">Mi carrito</h2>
+      <div class="table-responsive overflow-hidden">
+        <table class="table table-hover" id="carrito">
+          <thead class="text-center">
+            <tr>
+              <th scope="col" class="centrar">Producto</th>
+              <th scope="col" class="centrar">Costo</th>
+              <th scope="col" class="centrar">Cantidad</th>
+              <th scope="col" class="centrar">Subtotal</th>
+              <th scope="col" class="centrar"></th>
+            </tr>
+          </thead>
+          <tbody id="productos">
+          </tbody>
+        </table>
       </div>
-      <div class="form-check">
-        <input type="radio" name="tipoEnvio" id="express" value="express" class="form-check-input">
-        <label for="express" class="form-check-label">Express 5 a 8 días (7%)</label>
+    </div>
+    <br>
+    <div class="container col-md-8">
+      <div id="envio">
+        <h5 class="h5 mt-0 mb-3"><i class="fa fa-shipping-fast"></i> Tipo de envío</h5>
+        <div class="form-check">
+          <input type="radio" name="tipoEnvio" id="premium" value="premium" class="form-check-input">
+          <label for="premium" class="form-check-label">Premium 2 a 5 días (15%)</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" name="tipoEnvio" id="express" value="express" class="form-check-input">
+          <label for="express" class="form-check-label">Express 5 a 8 días (7%)</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" name="tipoEnvio" id="standard" value="standard" class="form-check-input" required>
+          <label for="standard" class="form-check-label">Standard 12 a 15 días (5%)</label>
+        </div>
       </div>
-      <div class="form-check">
-        <input type="radio" name="tipoEnvio" id="standard" value="standard" class="form-check-input" required>
-        <label for="standard" class="form-check-label">Standard 12 a 15 días (5%)</label>
+      <form class="row" id="dire" novalidate>
+        <h5 class="h5 mt-4 mb-3"><i class="fa fa-home"></i> Dirección</h5>
+        <div class="col">
+          <div>
+            <label for="calle" class="form-label">Calle</label>
+            <input type="text" class="form-control" id="calle" required>
+            <div class="invalid-feedback">Debe ingresar calle.</div>
+          </div>
+          <div>
+            <label for="esq" class="form-label">Esquina</label>
+            <input type="text" class="form-control" id="esq" required>
+            <div class="invalid-feedback">Debe ingresar la esquina.</div>
+          </div>
+        </div>
+        <div class="col">
+          <label for="nbr" class="form-label">Número</label>
+          <input type="number" class="form-control" id="nbr" required>
+          <div class="invalid-feedback">Debe ingresar número de puerta.</div>
+        </div>
+      </form>
     </div>
-  </div>
-  <form class="row" id="dire" novalidate>
-    <h5 class="h5 mt-4 mb-3"><i class="fa fa-home"></i> Dirección</h5>
-    <div class="col">
-      <div>
-        <label for="calle" class="form-label">Calle</label>
-        <input type="text" class="form-control" id="calle" required>
-        <div class="invalid-feedback">Debe ingresar calle.</div>
-      </div>
-      <div>
-        <label for="esq" class="form-label">Esquina</label>
-        <input type="text" class="form-control" id="esq" required>
-        <div class="invalid-feedback">Debe ingresar la esquina.</div>
-      </div>  
-    </div>
-    <div class="col">
-      <label for="nbr" class="form-label">Número</label>
-      <input type="number" class="form-control" id="nbr" required>
-      <div class="invalid-feedback">Debe ingresar número de puerta.</div>
-    </div>
-  </form>
-</div>
 
-<div class="container">
-  <h5 class="h5 mt-4 mb-3"><i class="fa fa-coins"></i> Costos</h5>
-  <table class="table table-responsive oscureable">
+    <div class="container col-md-8">
+      <h5 class="h5 mt-4 mb-3"><i class="fa fa-coins"></i> Costos</h5>
+      <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">Precio</h6>
+            <small class="text-muted">Unitario del producto</small>
+          </div>
+          <span class="text-muted" id="subtotalGeneral">-</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">Costo de envío</h6>
+            <small class="text-muted">Según el tipo de envío</small>
+          </div>
+          <span class="text-muted" id="costoEnvio">-</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total ($)</span>
+          <strong id="totalPagar">-</strong>
+        </li>
+      </ul>
+
+      <!--table class="list-group">
     <tbody>
-      <tr>
+      <tr class="list-group-item">
         <td>Subtotal<br><small>Costo unitario del producto por cantidad</small></td>
         <td id="subtotalGeneral">0.00 USD</td>
       </tr>
-      <tr>
+      <tr class="list-group-item">
         <td>Costos de envío<br><small>Según el tipo de envío</small></td>
         <td id="costoEnvio">0.00 USD</td>
       </tr>
-      <tr>
+      <tr class="list-group-item">
         <td>Total (S)</td>
         <td id="totalPagar"><strong>0.00 USD</strong></td>
       </tr>
     </tbody>
-  </table>
-</div>
+  </table-->
+    </div>
 
-  <div class="container">
-    <h5 class="h5 mt-4 mb-3"><i class="fa fa-credit-card"></i> Forma de pago</h5>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal">
-      Seleccionar
-    </button>
-    <div id="feedback-fop" class="invalid-feedback">Debe elegir una forma de pago.</div>
-    
-    <!-- Modal -->
-    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="container col-md-8">
+      <h5 class="h5 mt-4 mb-3"><i class="fa fa-credit-card"></i> Forma de pago</h5>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal">
+        <a>Seleccionar</a>
+      </button>
+      <div id="feedback-fop" class="invalid-feedback">Debe elegir una forma de pago.</div>
+
+      <!-- Modal -->
+      <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal" tabindex="-1"
+        aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Forma de pago</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input class="form-check-input" type="radio" name="radio" id="radiocc" checked novalidate>
+              <label class="mb-3" for="radiocc">
+                <i class="fa fa-credit-card"></i> <b>Tarjeta de crédito</b>
+              </label>
+              <fieldset id="inputcc">
+                <form class="row g-3" novalidate>
+                  <div class="col-12">
+                    <label for="ccnum" class="form-label">Número de tarjeta</label>
+                    <input type="number" class="form-control" id="ccnum" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="ccexp" class="form-label">Vencimiento</label>
+                    <input type="text" class="form-control" id="ccexp" placeholder="MM/AA" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cvc" class="form-label">CVC</label>
+                    <input type="number" class="form-control" id="cvc" required>
+                  </div>
+                </form>
+              </fieldset>
+              <hr>
+              <input class="form-check-input" type="radio" name="radio" id="radiotransf" novalidate>
+              <label class="mb-3" for="radiotransf">
+                <i class="fa fa-piggy-bank"></i> <b>Transferencia bancaria</b>
+              </label>
+              <fieldset id="inputtransf" disabled>
+                <div class="col">
+                  <label for="cuenta" class="form-label">Número de cuenta</label>
+                  <input type="number" class="form-control" id="cuenta" required>
+                </div>
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="guardar-fop">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container text-center">
+      <button class="btn btn-success btn-lg mt-3" id="finalizar"><i class="fa fa-shopping-cart"></i> <a>Finalizar compra</a></button>
+    </div>
+    <!-- Modal feedback finalizar compra -->
+    <div class="modal fade" id="feedback-finalizar" tabindex="-1" aria-labelledby="feedback-finalizarLabel"
+      aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content oscureable">
+        <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalLabel">Forma de pago</h5>
+            <h5 class="modal-title" id="feedback-finalizarLabel">Modal title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input class="form-check-input" type="radio" name="radio" id="radiocc" checked novalidate>
-            <label class="mb-3" for="radiocc">
-              <i class="fa fa-credit-card"></i> <b>Tarjeta de crédito</b>
-            </label>
-            <fieldset id="inputcc">
-              <form class="row g-3" novalidate>
-                <div class="col-12">
-                  <label for="ccnum" class="form-label">Número de tarjeta</label>
-                  <input type="number" class="form-control" id="ccnum" required>
-                </div>
-                <div class="col-md-6">
-                  <label for="ccexp" class="form-label">Vencimiento</label>
-                  <input type="text" class="form-control" id="ccexp" placeholder="MM/AA" required>
-                </div>
-                <div class="col-md-6">
-                  <label for="cvc" class="form-label">CVC</label>
-                  <input type="number" class="form-control" id="cvc" required>
-                </div>
-              </form>
-            </fieldset>
-            <hr>
-            <input class="form-check-input" type="radio" name="radio" id="radiotransf" novalidate>
-            <label class="mb-3" for="radiotransf">
-              <i class="fa fa-piggy-bank"></i> <b>Transferencia bancaria</b>
-            </label>
-            <fieldset id="inputtransf" disabled>
-              <div class="col">
-                <label for="cuenta" class="form-label">Número de cuenta</label>
-                <input type="number" class="form-control" id="cuenta" required>
-              </div>
-            </fieldset>
+            ...
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="guardar-fop">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="container text-center">
-    <button class="btn btn-success btn-lg mt-3" id="finalizar"><i class="fa fa-shopping-cart"></i> Finalizar compra</button>
-  </div>
-  <!-- Modal feedback finalizar compra -->
-  <div class="modal fade" id="feedback-finalizar" tabindex="-1" aria-labelledby="feedback-finalizarLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="feedback-finalizarLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+    <div id="success-alert" class="alert alert-success text-center d-none">
+      <i class="fa fa-check-circle"></i> ¡Compra exitosa!
     </div>
-  </div>
-  <div id="success-alert" class="alert alert-success text-center d-none">
-    <i class="fa fa-check-circle"></i> ¡Compra exitosa!
-  </div>
   </main>
-  <footer class="text-muted oscureable">
+  <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">
