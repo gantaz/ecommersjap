@@ -86,12 +86,17 @@ document.querySelectorAll('#envio input[type="radio"]').forEach(item => {
 //HTML para insertar en el carrito
 function generarHTML(nombre, precio, foto, moneda, productIndex) {
   return `
-    <tr class="producto" id="filaProducto${productIndex}">
-      <td><img src=${foto} class="img-thumbnail">${nombre}</td>
-      <td class="centrar">${precio} ${moneda}</td>
-      <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
-      <td class="centrar"><span id="subtotal${productIndex}">${precio} ${moneda}</span></td>
-      <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
+    <tr class="producto text-center" id="filaProducto${productIndex}">
+      <td>
+       <figure class="figure m-0">
+        <img src="${foto}" class="figure-img img-fluid rounded m-0" alt="${nombre}">
+        <figcaption class="figure-caption">${nombre}</figcaption>
+       </figure>
+      </td>
+      <td>${precio} ${moneda}</td>
+      <td><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
+      <td><span id="subtotal${productIndex}">${precio} ${moneda}</span></td>
+      <td><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i></button></td>
     </tr>
   `;
 }
