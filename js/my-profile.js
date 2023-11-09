@@ -40,8 +40,20 @@ function myValidations() {
     if (sApellido) {
         localStorage.setItem("sApellido",sApellido.value);
     }
+    showSuccessAlert();
     return validity;
 }
+
+// Alerta existosa
+function showSuccessAlert() {
+    const successAlert = document.getElementById("success-alert");
+  
+    successAlert.classList.remove("d-none");
+  
+    setTimeout(() => {
+      successAlert.classList.add("d-none");
+    }, 3000);
+  }
 
 const enviar = document.getElementById("submitBtn");
 enviar.addEventListener("click", () => {

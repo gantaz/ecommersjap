@@ -73,6 +73,9 @@
       </div>
     </div>
   </nav>
+  <div id="success-alert" class="alert alert-success text-center d-none">
+    <i class="fa fa-save"></i> ¡Datos guardados!
+  </div>
   <main>
       <div class="container m-lg-100">
         <div class="row">
@@ -103,7 +106,8 @@
               </div>
               <div class="mb-3">
                 <label for="telefono">Teléfono de contacto <b class="text-warning">*</b></label>
-                <input type="number" class="form-control" id="telefono" name="telefono" required>
+                <!--input type="number" class="form-control" id="telefono" name="telefono" required-->
+                <input type="tel" class="form-control" id="telefono" name="telefono" required />
                 <div id="feedback-telefono" class="invalid-feedback">Debe ingresar teléfono.</div>
               </div>
             </div>
