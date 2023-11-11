@@ -1,3 +1,13 @@
+function showFailAlert() {
+    const failAlert = document.getElementById("danger-alert");
+  
+    failAlert.classList.remove("d-none");
+  
+    setTimeout(() => {
+      failAlert.classList.add("d-none");
+    }, 3000);
+  }
+
 function validar() {
     let user = document.getElementById("user").value;
     let password = document.getElementById("password").value;
@@ -18,7 +28,7 @@ function validar() {
         sessionStorage.setItem("user", user);
         window.location.href = "index.html";
     } else {
-        alert("Datos incorrectos");
+        showFailAlert();
     }
 }
 
