@@ -83,44 +83,23 @@ document.querySelectorAll('#envio input[type="radio"]').forEach(item => {
   });
 });
 
-
-// Cargar producto desde la API
-fetch(carrito)
-  .then((response) => response.json())
-  .then((data) => {
-
-    const product = data.articles[0];
-
-    const name = product.name;
-    const precio = product.unitCost;
-    const foto = product.image;
-
-    // se le asigna un indice al producto para identificarlo en la función de cálculo
-    const productIndex = productos.length; //length es para tomarlo según la longitud del array, en la posi en la que se encuentre el producto, se le asigna un indice al ser agregado al carrito
-
-    // Crear contenido HTML para mostrar el producto en la página
-    const htmlContentToAppend = ` 
-    <tr class="producto" id="filaProducto${productIndex}">
-      <td><img src=${foto} class="img-thumbnail">${name}</td>
-      <td class="centrar">${precio} ${product.currency}</td>
-      <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
-      <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
-      <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
+//HTML para insertar en el carrito
+function generarHTML(nombre, precio, foto, moneda, productIndex) {
+  return `
+    <tr class="producto text-center" id="filaProducto${productIndex}">
+      <td>
+       <figure class="figure m-0">
+        <img src="${foto}" class="figure-img img-fluid rounded m-0" alt="${nombre}">
+        <figcaption class="figure-caption">${nombre}</figcaption>
+       </figure>
+      </td>
+      <td>${precio} ${moneda}</td>
+      <td><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
+      <td><span id="subtotal${productIndex}">${precio} ${moneda}</span></td>
+      <td><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i></button></td>
     </tr>
- `;
-
-    // agrega html
-    document.querySelector("#productos").innerHTML += htmlContentToAppend;
-
-    // pushea el producto al array
-    productos.push(product);
-
-    // calcula subtotal y lo muestra tomando como parametro el indice previamente definido
-    updateSubtotal(productIndex);
-  })
-  .catch((error) => {
-    console.error("Error al cargar el producto: " + error);
-  });
+  `;
+}
 
 // Función para mostrar productos desde el carrito local
 function carritoLocal() {
@@ -128,26 +107,11 @@ function carritoLocal() {
   let products = JSON.parse(localStorage.getItem("carrito"));
 
   if (products) {
-    //para cada producto del local:
-    products.forEach((product) => {
-      const name = product.name;
-      const precio = product.cost;
-      const foto = product.images[0];
-
+      //para cada producto del local:
+      products.forEach((product) => {
       //asigna indice al producto segun posi en el array
       const productIndex = productos.length;
-
-      const htmlContentToAppend = `
-    <tr class="producto" id="filaProducto${productIndex}">
-    <td><img src=${foto} class="img-thumbnail">${name}</td>
-    <td class="centrar">${precio} ${product.currency}</td>
-    <td class="centrar"><input type="number" value="1" min="1" id="cantidadInput${productIndex}" cant-index="${productIndex}" class="form-control"></td>
-    <td class="centrar"><span id="subtotal${productIndex}">${precio} ${product.currency}</span></td>
-    <td class="centrar"><button class="btn btn-danger eliminar-producto btn-sm" id="eliminarProducto${productIndex}" data-product-index="${productIndex}"><i class="fas fa-trash"></i> Eliminar</button></td>
-  </tr>
-`;
-
-      document.querySelector("#productos").innerHTML += htmlContentToAppend;
+      document.querySelector("#productos").innerHTML += generarHTML(product.name, product.cost, product.images[0], product.currency, productIndex);
       //pushea el producto al array
       productos.push(product);
 
@@ -157,8 +121,30 @@ function carritoLocal() {
   }
 }
 
-// llama la funcion para mostrar el carrito local
-carritoLocal();
+// Cargar producto desde la API
+fetch(carrito)
+  .then((response) => response.json())
+  .then((data) => {
+    // Iterar en los productos existentes
+    for (let i = 0; i < productos.length; i++) {
+      // Revisar si existe
+      if (productos[i].id === data.articles[0].id) {
+        // No agregarlo
+        return;
+      }
+    }
+    // Añadir al HTML
+    const product = data.articles[0];
+    const productIndex = productos.length;
+    document.querySelector("#productos").innerHTML += generarHTML(product.name, product.unitCost, product.image, product.currency, productIndex);
+    productos.push(product);
+    updateSubtotal(productIndex);
+  })
+  // llama la funcion para mostrar el carrito local
+  .then(carritoLocal())
+  .catch((error) => {
+    console.error("Error al cargar el producto: " + error);
+  });
 
 // eventlistener para los cambios en los input de cantidad
 document.addEventListener("input", function (event) {
@@ -170,63 +156,91 @@ document.addEventListener("input", function (event) {
 });
 
 //Funcionalidad para validar
-let fop1 = document.getElementById("inputcc");
-let fop2 = document.getElementById("inputtransf");
-let radio1 = document.getElementById("radiocc");
-let radio2 = document.getElementById("radiotransf");
-let ccnum = document.getElementById("ccnum");
-let ccexp = document.getElementById("ccexp");
-let cvc = document.getElementById("cvc");
-let cuenta = document.getElementById("cuenta");
-let calle = document.getElementById("calle");
-let esq = document.getElementById("esq");
-let nbr = document.getElementById("nbr");
-let pr = document.getElementById("premium");
-let ex = document.getElementById("express");
-let st = document.getElementById("standard");
+const inputTarjeta = document.getElementById("inputcc");
+const inputTransferencia = document.getElementById("inputtransf");
+const radioTarjeta = document.getElementById("radiocc");
+const radioTransferencia = document.getElementById("radiotransf");
+const numeroTarjeta = document.getElementById("ccnum");
+const expiracionTarjeta = document.getElementById("ccexp");
+const cvcTarjeta = document.getElementById("cvc");
+const numeroCuenta = document.getElementById("cuenta");
+const calleDir = document.getElementById("calle");
+const esquinaDir = document.getElementById("esq");
+const numeroDir = document.getElementById("nbr");
+const envioPremium = document.getElementById("premium");
+const envioExpress = document.getElementById("express");
+const envioStandard = document.getElementById("standard");
 
-radio1.addEventListener("click", () => {
-  cuenta.value = '';
-  fop1.removeAttribute('disabled', '');
-  fop2.setAttribute('disabled', '');
+// Validar tarjeta
+radioTarjeta.addEventListener("click", () => {
+  // Clear the bank account field
+  numeroCuenta.value = "";
+
+  // Enable the credit card input and disable the bank transfer input
+  inputTarjeta.removeAttribute("disabled");
+  inputTransferencia.setAttribute("disabled", "");
 });
 
-radio2.addEventListener("click", () => {
-  ccnum.value = '';
-  ccexp.value = '';
-  cvc.value = '';
-  fop2.removeAttribute('disabled', '');
-  fop1.setAttribute('disabled', '');
-}); 
+radioTransferencia.addEventListener("click", () => {
+  // Limpiar campos tarjeta
+  numeroTarjeta.value = "";
+  expiracionTarjeta.value = "";
+  cvcTarjeta.value = "";
 
-//Alerta éxito
+  inputTransferencia.removeAttribute("disabled");
+  inputTarjeta.setAttribute("disabled", "");
+});
+
+// Alerta existosa
 function showSuccessAlert() {
   const successAlert = document.getElementById("success-alert");
-  successAlert.classList.remove("d-none"); 
-  
-  setTimeout(function() {
-    successAlert.classList.add("d-none"); 
+
+  successAlert.classList.remove("d-none");
+
+  setTimeout(() => {
+    successAlert.classList.add("d-none");
   }, 3000);
 }
-
-// Validaciones personalizadas
+// Validaciones del formulario
 function myValidations() {
   let validity = false;
-  if (((ccnum.value.length || ccexp.value.length || cvc.value.length) || cuenta.value.length) === 0) {
-    validity = false;
-    document.getElementById('feedback-fop').classList.add("d-block"); 
-    console.log("Forma de pago invalida");
+  //Forma de pago
+  function validarFormaDePago() {
+    const hayInfoTarjeta =
+      numeroTarjeta.value && expiracionTarjeta.value && cvcTarjeta.value;
+    const hayInfoTransferencia = numeroCuenta.value;
+    if (!hayInfoTarjeta && !hayInfoTransferencia) {
+      document.getElementById("feedback-fop").classList.add("d-block");
+      return false;
+    }
+    return true;
   }
-  if ((calle.value.length || esq.value.length || nbr.value.length) === 0) {
-    validity = false;
-    console.log("Falta direccion de envio");
-  };
-  if (!(pr.checked || ex.checked || st.checked)) {
-    validity = false;
-    console.log("Falta tipo de envio");
+  //Direccion
+  function validarDireccion() {
+    if (!streetAddress.value || !neighborhood.value || !number.value) {
+      return false;
+    }
+    return true;
   }
-  else {
+  //Tipo de envio
+  function validarEnvio() {
+    if (
+      !envioPremium.checked &&
+      !envioExpress.checked &&
+      !envioStandard.checked
+    ) {
+      console.log("Falta tipo de envio");
+      return false;
+    }
+    return true;
+  }
+  function validarFormulario() {
+    return validarFormaDePago() && validarDireccion() && validarEnvio();
+  }
+  if (validarFormulario()) {
+    // Todas las validaciones OK
     validity = true;
+    // Mostrar alerta exitosa
     showSuccessAlert();
     return validity;
   }

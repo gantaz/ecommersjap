@@ -1,53 +1,27 @@
 #carrito input[type=number] {
-    max-width: 80px;
-    text-align: center;
-    margin: auto;
-}
+  max-width: 5rem;
+  margin: auto;
+} 
 
-.centrar {
-    text-align: center;
+tr {
+  vertical-align: middle;
 }
 
 tr img {
-  max-height: 10vw;
-  margin-right: 1rem;
+max-height: 10vw;
+margin-right: 1rem;
 }
 
-tr {
-    vertical-align: middle;
+#cart {
+max-width: 70vw;
 }
 
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    tr {
-        font-size: smaller;
-    }
+@media only screen and (max-width: 600px) {
+  /* For mobile phones: */
+  tr {
+      font-size: smaller;
   }
-
-  table {
-    width: 100%;
-/*    border-collapse: collapse;*/
+  #cart {
+    max-width: 100vw;
   }
-  
-  table, th, td {
-    padding: 15px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-/*  td:first-child, th:first-child {
-    border-left: 1px solid black;
-  }
-  
-  td:last-child, th:last-child {
-    border-right: 1px solid black;
-  }*/
-  
-  .total-price {
-    font-weight: bold;
-    text-align: right;
-  }
-  
+}

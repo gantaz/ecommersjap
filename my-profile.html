@@ -25,6 +25,10 @@
         font-size: 3.5rem;
       }
     }
+    #foto-de-perfil{
+      width: 100px;
+      height: 100px;
+    }
   </style>
 </head>
 
@@ -69,12 +73,63 @@
       </div>
     </div>
   </nav>
+  <div id="success-alert" class="alert alert-success text-center d-none">
+    <i class="fa fa-save"></i> ¡Datos guardados!
+  </div>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="container m-lg-100">
+        <div class="row">
+          <div class="col col-8 col-md-10">
+            <h2 class="text-left pt-4 pb-4">Mi perfil</h2>
+          </div>
+          <div class="col col-4 col-md-2 pt-4">
+            <img id="foto-de-perfil" class="img-thumbnail" src="img/user.svg">
+          </div>
+        </div>
+        <hr>
+        <form novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="primer-nombre">Primer nombre <b class="text-warning">*</b></label>
+                <input type="text" class="form-control" id="primer-nombre" name="primer-nombre" required>
+                <div id="feedback-nombre" class="invalid-feedback">Debe ingresar nombre.</div>
+              </div>
+              <div class="mb-3">
+                <label for="primer-apellido">Primer apellido <b class="text-warning">*</b></label>
+                <input type="text" class="form-control" id="primer-apellido" name="primer-apellido" required>
+                <div id="feedback-apellido" class="invalid-feedback">Debe ingresar nombre.</div>
+              </div>
+              <div class="mb-3">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" disabled>
+              </div>
+              <div class="mb-3">
+                <label for="telefono">Teléfono de contacto <b class="text-warning">*</b></label>
+                <!--input type="number" class="form-control" id="telefono" name="telefono" required-->
+                <input type="tel" class="form-control" id="telefono" name="telefono" required />
+                <div id="feedback-telefono" class="invalid-feedback">Debe ingresar teléfono.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="segundo-nombre">Segundo nombre</label>
+                <input type="text" class="form-control" id="segundo-nombre" name="segundo-nombre">
+              </div>
+              <div class="mb-3">
+                <label for="segundo-apellido">Segundo apellido</label>
+                <input type="text" class="form-control" id="segundo-apellido" name="segundo-apellido">
+              </div>
+              <div class="mb-3">
+                  <label for="img">Imagen de perfil</label>
+                  <input class="form-control" type="file" id="img" name="img" >
+              </div>
+            </div>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary" id="submitBtn"><a>Guardar cambios</a></button>
+        </form>
       </div>
-    </div>
   </main>
   <footer class="text-muted">
     <div class="container">
