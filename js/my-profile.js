@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fotoDePerfil.setAttribute('src', imagenGuardada);
   }
 });
-=======
+
 //Colocar usuario en campo email
 let localUser = localStorage.getItem("user");
 let sessionUser = sessionStorage.getItem("user");
