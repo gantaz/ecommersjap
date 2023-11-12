@@ -1,5 +1,4 @@
 // Colocar usuario en campo email
-let datosUsuario = JSON.parse(localStorage.getItem("datosUsuario")) || {};
 document.getElementById("email").placeholder = localStorage.getItem("user") || sessionStorage.getItem("user");
 
 // Validar campos requeridos
@@ -9,10 +8,7 @@ let telefono = document.getElementById("telefono");
 let sNombre = document.getElementById("segundo-nombre");
 let sApellido = document.getElementById("segundo-apellido");
 
-// Obtener datos del localStorage
-let datosUsuarioLocal = JSON.parse(localStorage.getItem("datosUsuario")) || {};
-
-function misValidaciones() {
+function myValidations() {
   let validity = false;
 
   document.getElementById("datos-obligatorios").classList.add("was-validated");
@@ -22,6 +18,7 @@ function misValidaciones() {
     validity = true;
   } else {
     document.getElementById("feedback-nombre").classList.add("d-block");
+    validity = false;
   }
 
   if (pApellido.value) {
@@ -29,27 +26,23 @@ function misValidaciones() {
     validity = true;
   } else {
     document.getElementById("feedback-apellido").classList.add("d-block");
+    validity = false;
   }
 
   if (telefono.value) {
     datosUsuario.telefono = telefono.value;
     validity = true;
   } else {
+    validity = false;
     document.getElementById("feedback-telefono").classList.add("d-block");
   }
 
   if (sNombre.value) {
     datosUsuario.sNombre = sNombre.value;
-    validity = true;
   }
 
   if (sApellido.value) {
     datosUsuario.sApellido = sApellido.value;
-    validity = true;
-  }
-
-  if (validity) {
-    showSuccessAlert();
   }
 
   return validity;
@@ -66,13 +59,28 @@ function showSuccessAlert() {
   }, 3000);
 }
 
+// Alerta de falla
+function showFailAlert() {
+  const failAlert = document.getElementById("danger-alert");
+
+  failAlert.classList.remove("d-none");
+
+  setTimeout(() => {
+    failAlert.classList.add("d-none");
+  }, 3000);
+}
+
+//Validar al enviar
 const enviar = document.getElementById("submitBtn");
 enviar.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
 
-  if (!misValidaciones()) {
-    return;
+  if (!myValidations()) {
+    showFailAlert();
+    return false;
+  } else {
+    showSuccessAlert();
   }
 
   document.body.classList.add("was-validated");
@@ -82,24 +90,26 @@ enviar.addEventListener("click", (event) => {
 });
 
 // Mostrar datos si ya fueron ingresados
-if (datosUsuarioLocal.pNombre) {
-  pNombre.value = datosUsuarioLocal.pNombre;
+let datosUsuario = JSON.parse(localStorage.getItem("datosUsuario")) || {};
+
+if (datosUsuario.pNombre) {
+  pNombre.value = datosUsuario.pNombre;
 }
 
-if (datosUsuarioLocal.pApellido) {
-  pApellido.value = datosUsuarioLocal.pApellido;
+if (datosUsuario.pApellido) {
+  pApellido.value = datosUsuario.pApellido;
 }
 
-if (datosUsuarioLocal.telefono) {
-  telefono.value = datosUsuarioLocal.telefono;
+if (datosUsuario.telefono) {
+  telefono.value = datosUsuario.telefono;
 }
 
-if (datosUsuarioLocal.sNombre) {
-  sNombre.value = datosUsuarioLocal.sNombre;
+if (datosUsuario.sNombre) {
+  sNombre.value = datosUsuario.sNombre;
 }
 
-if (datosUsuarioLocal.sApellido) {
-  sApellido.value = datosUsuarioLocal.sApellido;
+if (datosUsuario.sApellido) {
+  sApellido.value = datosUsuario.sApellido;
 }
 
 //Cambiar foto de perfil
@@ -125,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Una vez convertido a base64 se ejecuta el evento 'load' para cargar los datos del base64 y disparar lo que hay dentro de la función
       lector.addEventListener('load', () => {
+        try {
           // Guardar la data url en el local
           localStorage.setItem('imagenPerfil', lector.result);
 
@@ -134,6 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
               // Si hay una imagen en el local, establece la data url como el valor del atributo src
               fotoDePerfil.setAttribute('src', imagenGuardada);
           }
+        }
+        // Mostrar error si el tamnaño de imagen es muy grande 
+        catch (error) {
+          input.value = null;
+          document.getElementById("feedback-img").classList.add("d-block");
+          //alert('Storage quota exceeded. Please free up some space.');
+        }
       });
   });
 
