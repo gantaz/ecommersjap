@@ -26,8 +26,9 @@
       }
     }
     #foto-de-perfil{
-      width: 100px;
+      max-width: 100px;
       height: 100px;
+      object-fit: cover;  
     }
   </style>
 </head>
@@ -77,19 +78,20 @@
     <i class="fa fa-save"></i> ¡Datos guardados!
   </div>
   <main>
-      <div class="container m-lg-100">
-        <div class="row">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 order-md-1">
+        <div class="row p-2 pt-0 pb-0">
           <div class="col col-8 col-md-10">
             <h2 class="text-left pt-4 pb-4">Mi perfil</h2>
           </div>
           <div class="col col-4 col-md-2 pt-4">
-            <img id="foto-de-perfil" class="img-thumbnail" src="img/user.svg">
+            <img id="foto-de-perfil" class="img-thumbnail float-end" src="img/user.svg">
           </div>
         </div>
-        <hr>
-        <form novalidate>
+        <form class="container" novalidate>
+          <hr>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" id="datos-obligatorios">
               <div class="mb-3">
                 <label for="primer-nombre">Primer nombre <b class="text-warning">*</b></label>
                 <input type="text" class="form-control" id="primer-nombre" name="primer-nombre" required>
@@ -130,6 +132,7 @@
           <button type="submit" class="btn btn-primary" id="submitBtn"><a>Guardar cambios</a></button>
         </form>
       </div>
+    </div>
   </main>
   <footer class="text-muted">
     <div class="container">

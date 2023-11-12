@@ -6,30 +6,45 @@ function showFailAlert() {
     setTimeout(() => {
       failAlert.classList.add("d-none");
     }, 3000);
-  }
+}
+
+function validarFormatoEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
 function validar() {
     let user = document.getElementById("user").value;
     let password = document.getElementById("password").value;
     let recordar = document.getElementById("recordarme").checked;
+    let validity = false;
 
-    function validarpass() {
+    if (validarFormatoEmail(user) === false){
+        document.getElementById("feedback-user").classList.add("d-block");
+    } else {
+        document.getElementById("feedback-user").classList.remove("d-block");
+    }
+
+    function myValidations() {
         if ((user.length > 0) && (password.length > 0)) {
+            validity = true;
             return true;
         } else {
+           // document.getElementById("feedback-password").classList.add("d-block");
             return false;
         }
     }
 
-    if (recordar && validarpass()) {
-        localStorage.setItem("user", user);
+    if (validarFormatoEmail(user) && myValidations()) {
+        if (recordar) {
+          localStorage.setItem("user", user);
+        } else {
+          sessionStorage.setItem("user", user);
+        }
         window.location.href = "index.html";
-    } else if (!recordar && validarpass()) {
-        sessionStorage.setItem("user", user);
-        window.location.href = "index.html";
-    } else {
+      } else {
         showFailAlert();
-    }
+      }
 }
 
 

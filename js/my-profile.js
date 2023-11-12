@@ -1,95 +1,106 @@
-//Colocar usuario en campo email
-let localUser = localStorage.getItem("user");
-let sessionUser = sessionStorage.getItem("user");
-document.getElementById("email").placeholder = (localUser || sessionUser);
+// Colocar usuario en campo email
+let datosUsuario = JSON.parse(localStorage.getItem("datosUsuario")) || {};
+document.getElementById("email").placeholder = localStorage.getItem("user") || sessionStorage.getItem("user");
 
-//Validar campos requeridos
+// Validar campos requeridos
 let pNombre = document.getElementById("primer-nombre");
 let pApellido = document.getElementById("primer-apellido");
 let telefono = document.getElementById("telefono");
-let sNombre =  document.getElementById("segundo-nombre"); 
-let sApellido =  document.getElementById("segundo-apellido"); 
+let sNombre = document.getElementById("segundo-nombre");
+let sApellido = document.getElementById("segundo-apellido");
 
-//Keys donde se guardan los datos
-let pNombreLocal = localStorage.getItem("pNombre");
-let pApellidoLocal = localStorage.getItem("pApellido");
-let telefonoLocal = localStorage.getItem("telefono");
-let sNombreLocal = localStorage.getItem("sNombre");
-let sApellidoLocal = localStorage.getItem("sApellido");
+// Obtener datos del localStorage
+let datosUsuarioLocal = JSON.parse(localStorage.getItem("datosUsuario")) || {};
 
-function myValidations() {
-    let validity = false;
-    if (!(pNombre.value)) {
-        document.getElementById("feedback-nombre").classList.add("d-block");
-    } else {
-        localStorage.setItem("pNombre",pNombre.value);
-    };
-    if (!(pApellido.value)) {
-        document.getElementById("feedback-apellido").classList.add("d-block");
-    } else {
-        localStorage.setItem("pApellido",pApellido.value);
-    };
-    if (!(telefono.value)) {
-        document.getElementById("feedback-telefono").classList.add("d-block");
-    } else {
-        localStorage.setItem("telefono",telefono.value);
-    }
-    if (sNombre) {
-        localStorage.setItem("sNombre",sNombre.value);
-    }
-    if (sApellido) {
-        localStorage.setItem("sApellido",sApellido.value);
-    }
+function misValidaciones() {
+  let validity = false;
+
+  document.getElementById("datos-obligatorios").classList.add("was-validated");
+
+  if (pNombre.value) {
+    datosUsuario.pNombre = pNombre.value;
+    validity = true;
+  } else {
+    document.getElementById("feedback-nombre").classList.add("d-block");
+  }
+
+  if (pApellido.value) {
+    datosUsuario.pApellido = pApellido.value;
+    validity = true;
+  } else {
+    document.getElementById("feedback-apellido").classList.add("d-block");
+  }
+
+  if (telefono.value) {
+    datosUsuario.telefono = telefono.value;
+    validity = true;
+  } else {
+    document.getElementById("feedback-telefono").classList.add("d-block");
+  }
+
+  if (sNombre.value) {
+    datosUsuario.sNombre = sNombre.value;
+    validity = true;
+  }
+
+  if (sApellido.value) {
+    datosUsuario.sApellido = sApellido.value;
+    validity = true;
+  }
+
+  if (validity) {
     showSuccessAlert();
-    return validity;
+  }
+
+  return validity;
 }
 
 // Alerta existosa
 function showSuccessAlert() {
-    const successAlert = document.getElementById("success-alert");
-  
-    successAlert.classList.remove("d-none");
-  
-    setTimeout(() => {
-      successAlert.classList.add("d-none");
-    }, 3000);
-  }
+  const alertaExitosa = document.getElementById("success-alert");
+
+  alertaExitosa.classList.remove("d-none");
+
+  setTimeout(() => {
+    alertaExitosa.classList.add("d-none");
+  }, 3000);
+}
 
 const enviar = document.getElementById("submitBtn");
-enviar.addEventListener("click", () => {
-    if (!myValidations()) {
-     event.preventDefault();
-     event.stopPropagation();
-   } 
-   document.body.classList.add("was-validated");
-   myValidations();
- });
+enviar.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
 
-//Mostrar datos si ya fueron ingresados
-if (pNombreLocal){
-    pNombre.value = pNombreLocal;
-}
-if (pApellidoLocal){
-    pApellido.value = pApellidoLocal;
-}
-if (telefonoLocal){
-    telefono.value = telefonoLocal;
-}
-if (sNombreLocal){
-    sNombre.value = sNombreLocal;
-}
-if (sApellidoLocal){
-    sApellido.value = sApellidoLocal;
+  if (!misValidaciones()) {
+    return;
+  }
+
+  document.body.classList.add("was-validated");
+
+  // Guardar datos en el localStorage
+  localStorage.setItem("datosUsuario", JSON.stringify(datosUsuario));
+});
+
+// Mostrar datos si ya fueron ingresados
+if (datosUsuarioLocal.pNombre) {
+  pNombre.value = datosUsuarioLocal.pNombre;
 }
 
-//Borrar storage al cerrar sesion
-document.getElementById("cerrarsesion").addEventListener("click",function(){
-    localStorage.removeItem("pNombre");
-    localStorage.removeItem("pApellido");
-    localStorage.removeItem("telefono");
-    localStorage.removeItem("sNombre");
-    localStorage.removeItem("sApellido");
-})
+if (datosUsuarioLocal.pApellido) {
+  pApellido.value = datosUsuarioLocal.pApellido;
+}
+
+if (datosUsuarioLocal.telefono) {
+  telefono.value = datosUsuarioLocal.telefono;
+}
+
+if (datosUsuarioLocal.sNombre) {
+  sNombre.value = datosUsuarioLocal.sNombre;
+}
+
+if (datosUsuarioLocal.sApellido) {
+  sApellido.value = datosUsuarioLocal.sApellido;
+}
 
 //Cambiar foto de perfil
 // documentación usada para base64: 
@@ -132,4 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Si hay una imagen en el local establece la data url como el valor del atributo src
       fotoDePerfil.setAttribute('src', imagenGuardada);
   }
+});
+
+// Borrar storage al cerrar sesión
+document.getElementById("cerrarsesion").addEventListener("click", function () {
+  localStorage.removeItem("datosUsuario");
+  localStorage.removeItem("imagenPerfil");
 });
