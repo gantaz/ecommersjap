@@ -41,13 +41,28 @@ fetch(PRODUCTS_INFO)
               
               //Carrito local
               var stringProducts = (product);
+              //Elimina productos relacionados (ahorra espacio y ayuda a evitar duplicados)
+              delete product.relatedProducts;
               var comprar = document.getElementById("buy");
               comprar.addEventListener("click", function () {
                  let listaItems = JSON.parse(localStorage.getItem('carrito')) || [];
                  let nuevoItem = stringProducts;
-                 listaItems.push(nuevoItem);
-                 localStorage.setItem('carrito', JSON.stringify(listaItems));
-                 window.location = "cart.html"
+                 //Corroborar si el ID ya existe en el carrito
+                 if (localStorage.getItem('carrito').includes(product.id)) {
+                  // Alerta de falla
+                  function showFailAlert() {
+                    const failAlert = document.getElementById("danger-alert");
+                    failAlert.classList.remove("d-none");
+                    setTimeout(() => {
+                      failAlert.classList.add("d-none");
+                    }, 3000);
+                  }
+                  showFailAlert();
+                } else { //Si no, agregar
+                  listaItems.push(nuevoItem);
+                  localStorage.setItem('carrito', JSON.stringify(listaItems));
+                  window.location = "cart.html";
+                }
               });
 
         } else {

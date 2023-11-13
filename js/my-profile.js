@@ -14,6 +14,7 @@ function myValidations() {
   document.getElementById("datos-obligatorios").classList.add("was-validated");
 
   if (pNombre.value) {
+    document.getElementById("feedback-nombre").classList.remove("d-block");
     datosUsuario.pNombre = pNombre.value;
     validity = true;
   } else {
@@ -22,6 +23,7 @@ function myValidations() {
   }
 
   if (pApellido.value) {
+    document.getElementById("feedback-apellido").classList.remove("d-block");
     datosUsuario.pApellido = pApellido.value;
     validity = true;
   } else {
@@ -30,6 +32,7 @@ function myValidations() {
   }
 
   if (telefono.value) {
+    document.getElementById("feedback-telefono").classList.remove("d-block");
     datosUsuario.telefono = telefono.value;
     validity = true;
   } else {
@@ -135,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Una vez convertido a base64 se ejecuta el evento 'load' para cargar los datos del base64 y disparar lo que hay dentro de la función
       lector.addEventListener('load', () => {
+        document.getElementById("feedback-img").classList.remove("d-block");
         try {
           // Guardar la data url en el local
           localStorage.setItem('imagenPerfil', lector.result);
