@@ -58,8 +58,8 @@ if (localStorage.getItem("user") === null) {
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("cerrarsesion").addEventListener("click", function () {
-        localStorage.removeItem("user");
-        sessionStorage.removeItem("user");
+        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = "login.html"
 })});
 

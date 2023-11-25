@@ -103,19 +103,39 @@ function generarHTML(nombre, precio, foto, moneda, productIndex) {
 
 // Función para mostrar productos desde el carrito local
 function carritoLocal() {
-  // agarra los productos del local
+  // Obtén los productos del almacenamiento local
   let products = JSON.parse(localStorage.getItem("carrito"));
 
   if (products) {
-      //para cada producto del local:
-      products.forEach((product) => {
-      //asigna indice al producto segun posi en el array
+    // Utiliza un conjunto para almacenar productos únicos
+    const uniqueProducts = new Set();
+
+    // Filtra productos duplicados
+    products = products.filter((product) => {
+      // Usa alguna propiedad única del producto, como el ID, para determinar la unicidad
+      const productKey = `${product.id}-${product.color}`; // Reemplaza con la propiedad única que tengas
+
+      // Verifica si el producto ya está en el conjunto
+      if (!uniqueProducts.has(productKey)) {
+        // Si no está en el conjunto, agrégalo al conjunto y devuelve true para incluirlo en la nueva lista de productos
+        uniqueProducts.add(productKey);
+        return true;
+      }
+
+      // Si ya está en el conjunto, devuelve false para excluirlo de la nueva lista de productos
+      return false;
+    });
+
+    // Guarda la nueva lista de productos en el almacenamiento local
+    localStorage.setItem("carrito", JSON.stringify(products));
+
+    // Actualiza la presentación de los productos en la página, si es necesario
+    products.forEach((product) => {
       const productIndex = productos.length;
       document.querySelector("#productos").innerHTML += generarHTML(product.name, product.cost, product.images[0], product.currency, productIndex);
-      //pushea el producto al array
       productos.push(product);
 
-      // llama a la funcion para calcular y mostrar el subtotalf
+      // Llama a la función para calcular y mostrar el subtotal
       updateSubtotal(productIndex);
     });
   }
@@ -217,11 +237,11 @@ function myValidations() {
   }
   //Direccion
   function validarDireccion() {
-    if (!streetAddress.value || !neighborhood.value || !number.value) {
+    if (!calleDir.value || !esquinaDir.value || !numeroDir.value) {
       return false;
     }
-    return true;
-  }
+    return true;
+  }
   //Tipo de envio
   function validarEnvio() {
     if (
