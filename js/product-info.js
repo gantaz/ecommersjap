@@ -1,10 +1,8 @@
-const PRODUCTS_INFO =
-    "https://japceibal.github.io/emercado-api/products/" + localStorage.getItem("productID") + ".json";
+const PRODUCTS_INFO = "http://localhost:3000/products/" + localStorage.getItem("productID");
 const productInfoContainer = document.getElementById("producto");
 
-const COMMENTS_LIST = "https://japceibal.github.io/emercado-api/products_comments/" + localStorage.getItem("productID") + ".json";
-
-const productCommentsContainer = document.getElementById("comentarios")
+const COMMENTS_LIST = "http://localhost:3000/products_comments/" + localStorage.getItem("productID");
+const productCommentsContainer = document.getElementById("comentarios");
 
 //Funcion setProductID de products.js
 function setProductID(id) {

@@ -1,10 +1,9 @@
 // Obtener info usuario almacenada y concatenarla a la api para obtener carrito
 let user = localStorage.getItem("user") || sessionStorage.getItem("user");
-let carrito = "https://japceibal.github.io/emercado-api/user_cart/" + user + ".json";
+let carrito = "http://localhost:3000/user_cart/" + user;
 
 // Array para almacenar info de los productos
 let productos = [];
-
 
 let subtotalGeneral = 0;  // Variable para almacenar el subtotal general
 
@@ -152,13 +151,27 @@ fetch(carrito)
         // No agregarlo
         return;
       }
-    }
+    } 
     // Añadir al HTML
     const product = data.articles[0];
     const productIndex = productos.length;
-    document.querySelector("#productos").innerHTML += generarHTML(product.name, product.unitCost, product.image, product.currency, productIndex);
+    document.querySelector("#productos").innerHTML += generarHTML(
+      product.name,
+      product.unitCost,
+      product.image,
+      product.currency,
+      productIndex
+    );
     productos.push(product);
     updateSubtotal(productIndex);
+
+    // Tomamos carrito del local storage y lo concatenamos con los datos de la API
+    var carritoLocal = localStorage.getItem("carrito");
+    var carritoAPI = data;
+    var carrito = JSON.parse(carritoLocal);
+    carrito = carrito.concat(carritoAPI.articles);
+    // Guardamos en una clave del storage
+    localStorage.setItem("carritosConcat", JSON.stringify(carrito));
   })
   // llama la funcion para mostrar el carrito local
   .then(carritoLocal())
@@ -168,7 +181,8 @@ fetch(carrito)
 
 // eventlistener para los cambios en los input de cantidad
 document.addEventListener("input", function (event) {
-  if (event.target.hasAttribute("cant-index")) {   // chequea si el elemento tiene el atributo "cant-index" para identificar el producto
+  if (event.target.hasAttribute("cant-index")) {
+    // chequea si el elemento tiene el atributo "cant-index" para identificar el producto
     const productIndex = parseInt(event.target.getAttribute("cant-index")); // Obtener el indice del input
     // Actualizar el subtotal cuando hay cambio en la cantidad del input
     updateSubtotal(productIndex);
@@ -215,12 +229,21 @@ radioTransferencia.addEventListener("click", () => {
 function showSuccessAlert() {
   const successAlert = document.getElementById("success-alert");
 
+  fetch("http://localhost:3000/cart")
+    .then((response) => response.json())
+    .then((data) => {
+      // Manejar la respuesta de la API
+      successAlert.innerHTML = data.msg;
+    })
+    .catch((error) => console.error("Error:", error));
+
   successAlert.classList.remove("d-none");
 
   setTimeout(() => {
     successAlert.classList.add("d-none");
   }, 3000);
 }
+
 // Validaciones del formulario
 function myValidations() {
   let validity = false;
@@ -240,8 +263,8 @@ function myValidations() {
     if (!calleDir.value || !esquinaDir.value || !numeroDir.value) {
       return false;
     }
-    return true;
-  }
+    return true;
+  }
   //Tipo de envio
   function validarEnvio() {
     if (
@@ -262,27 +285,97 @@ function myValidations() {
     validity = true;
     // Mostrar alerta exitosa
     showSuccessAlert();
+    comprar();
+    guardarEnServer();
     return validity;
   }
 }
+
+/////////////////////////////////////////////////////
+const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
+function comprar() {
+  // Obtener el token almacenado en localStorage o sessionStorage
+
+  console.log("Token:", token);
+
+  // Verificar si el token existe
+  if (token) {
+    // Configurar los encabezados de la solicitud con el token de autorización
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    });
+
+    // Configurar la solicitud para el endpoint de finalizar compra (/cart)
+    const requestOptions = {
+      method: "POST", // Puedes ajustar el método según tus necesidades
+      headers: headers,
+      // Puedes agregar un cuerpo a la solicitud si es necesario
+      // body: JSON.stringify({ /* Datos adicionales si los hay */ }),
+    };
+
+    // Realizar la solicitud al endpoint
+    fetch("http://localhost:3000/cart", requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Manejar la respuesta exitosa del servidor
+        console.log("Respuesta del servidor:", data);
+        // Puedes realizar acciones adicionales según la respuesta del servidor
+      })
+      .catch((error) => {
+        // Manejar errores en la solicitud
+        console.error("Error en la solicitud:", error.message);
+      });
+  } else {
+    // Si el token no está presente, el usuario no está autenticado
+    console.error(
+      "Usuario no autenticado. No se puede realizar la solicitud al endpoint /cart."
+    );
+  }
+}
+
+function guardarEnServer() {
+  const url = "http://localhost:3000/cart";
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
+  fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: localStorage.getItem("carritosConcat"),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error("Error:", error));
+}
+
+//////////////////////////////////////////////
 
 // Validar al comprar
 let finalizar = document.getElementById("finalizar");
 
 finalizar.addEventListener("click", () => {
-     if (!myValidations()) {
-      event.preventDefault();
-      event.stopPropagation();
-    } 
-    document.body.classList.add("was-validated");
-    //["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
-    myValidations();
-  });
+  if (!myValidations()) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  document.body.classList.add("was-validated");
+  //["change", "input"].forEach((ev) => { document.body.addEventListener(ev, myValidations) });
+  myValidations();
+});
 
 // Validar datos de pago al guardar
 let guardarFop = document.getElementById("guardar-fop");
 guardarFop.addEventListener("click", function () {
-  document.getElementById('feedback-fop').classList.remove("d-block"); 
+  document.getElementById("feedback-fop").classList.remove("d-block");
 });
 
 // Botón eliminar
@@ -322,7 +415,7 @@ function removerDeCarrito(productIndex) {
     subtotalGeneral -= product.cost || product.unitCost;
 
     // Mostrar el subtotal general actualizado
-    const subtotalGeneralElement = document.getElementById('subtotalGeneral');
+    const subtotalGeneralElement = document.getElementById("subtotalGeneral");
     subtotalGeneralElement.textContent = `${subtotalGeneral.toFixed(2)} USD`;
   }
 }
